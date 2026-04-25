@@ -1,0 +1,18 @@
+package com.Lifelink.HeathCareBridge.model;
+
+public enum ResourceType {
+    OXYGEN,
+    ICU_BED,
+    VENTILATOR,
+    BLOOD,
+    DEDICATED_COVID_BED,
+    COVID_VACCINE,
+    COVID_TEST_KIT,
+    COVID_MEDICINE,
+    COVID_PPE_KIT,
+    COVID_ISOLATION_FACILITY,
+    COVID_AMBULANCE,
+    COVID_HEALTHCARE_WORKER,
+    DEFIBRILLATOR,
+    OTHER
+}

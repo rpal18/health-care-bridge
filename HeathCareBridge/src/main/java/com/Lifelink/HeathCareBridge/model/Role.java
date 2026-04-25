@@ -2,6 +2,8 @@ package com.Lifelink.HeathCareBridge.model;
 
 public enum Role {
     PATIENT,
-    ADMIN,
-    DONOR
+    SYSTEM_ADMIN,
+    DONOR,
+    ORG_ADMIN
+
 }

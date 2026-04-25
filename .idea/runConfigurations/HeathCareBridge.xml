@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HeathCareBridge" type="Application" factoryName="Application">
+    <envs>
+      <env name="adminEmail" value="rohit12@gmail.com" />
+      <env name="adminPassword" value="Rohit@#123" />
+      <env name="adminUsername" value="Rohit123" />
+      <env name="adminPhoneNumber" value="8789909890" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.Lifelink.HeathCareBridge.HeathCareBridgeApplication" />
+    <module name="HeathCareBridge" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

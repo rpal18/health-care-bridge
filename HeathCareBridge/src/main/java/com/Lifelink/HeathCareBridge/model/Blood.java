@@ -6,19 +6,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @DiscriminatorValue("BLOOD")
 public class Blood extends Resource{
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private BloodGroup bloodGroup;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+
     private BloodComponent bloodComponent;
 
+    public Blood() {
+    }
+
+    public Blood(UUID id, String name, ResourceType resourceType, int quantity, boolean available, FacilityType facilityType, String facilityName, LocalDateTime lastUpdated) {
+        super(id, name, resourceType, quantity, available, facilityType, facilityName, lastUpdated);
+    }
+
+    public BloodGroup getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(BloodGroup bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public BloodComponent getBloodComponent() {
+        return bloodComponent;
+    }
+
+    public void setBloodComponent(BloodComponent bloodComponent) {
+        this.bloodComponent = bloodComponent;
+    }
 }
