@@ -1,64 +1,46 @@
-package com.Lifelink.HeathCareBridge.model;
+package com.Lifelink.HeathCareBridge.payload;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import com.Lifelink.HeathCareBridge.model.FacilityRole;
+import com.Lifelink.HeathCareBridge.model.FacilityType;
 
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
-public class Facility {
+public class FacilityResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String address;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private FacilityType type;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Facility role is required")
     private FacilityRole facilityRole;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "facility_roles", joinColumns = @JoinColumn(name = "facility_id"))
-    @Enumerated(EnumType.STRING)
     private Set<FacilityRole> roles;
 
-
-    @Column(nullable = false)
-    private Boolean directPatientCare;
-
+    private boolean directPatientCare;
 
     private Boolean is24x7;
-    @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")
+
     private String phoneNumber;
-    @Email(message = "Invalid email address")
+
     private String email;
 
     private double latitude;
 
     private double longitude;
 
-    public Facility() {
+    // Constructor
+
+
+    public FacilityResponseDTO() {
     }
 
-    public Facility(UUID id, String name, String address, FacilityType type,
-                    FacilityRole facilityRole, Set<FacilityRole> roles,
-                    Boolean directPatientCare, Boolean is24x7, String phoneNumber,
-                    String email, double latitude, double longitude) {
+    public FacilityResponseDTO(UUID id, String name, String address, FacilityType type, FacilityRole facilityRole,
+                               Set<FacilityRole> roles, boolean directPatientCare, Boolean is24x7, String phoneNumber,
+                               String email, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -105,6 +87,14 @@ public class Facility {
         this.type = type;
     }
 
+    public FacilityRole getFacilityRole() {
+        return facilityRole;
+    }
+
+    public void setFacilityRole(FacilityRole facilityRole) {
+        this.facilityRole = facilityRole;
+    }
+
     public Set<FacilityRole> getRoles() {
         return roles;
     }
@@ -117,7 +107,7 @@ public class Facility {
         return directPatientCare;
     }
 
-    public void setDirectPatientCare(Boolean directPatientCare) {
+    public void setDirectPatientCare(boolean directPatientCare) {
         this.directPatientCare = directPatientCare;
     }
 
@@ -159,13 +149,5 @@ public class Facility {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public FacilityRole getFacilityRole() {
-        return facilityRole;
-    }
-
-    public void setFacilityRole(FacilityRole facilityRole) {
-        this.facilityRole = facilityRole;
     }
 }

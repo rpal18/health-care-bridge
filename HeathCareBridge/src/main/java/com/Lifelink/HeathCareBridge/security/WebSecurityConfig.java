@@ -60,11 +60,13 @@ public class WebSecurityConfig {
                 .sessionManagement(session->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authorizeHttpRequests(
-                        req -> req.requestMatchers("/api/public/**").permitAll().
+                        req -> req.requestMatchers("/api/facilities/add").hasAuthority("SYSTEM_ADMIN").
+                                requestMatchers("/api/public/**").permitAll().
                                 requestMatchers("/api/auth/**").permitAll().
                                 requestMatchers("/v3/api-doc/**").permitAll().
                                 requestMatchers("/swagger-ui/**").permitAll().
                                 requestMatchers("/api/test/**").permitAll().anyRequest().authenticated()
+
 
                 );
         http.addFilterBefore(authTokenFilter() , UsernamePasswordAuthenticationFilter.class);
