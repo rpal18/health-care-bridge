@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,6 +53,9 @@ public class Facility {
     private double latitude;
 
     private double longitude;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt ;
+    private String deletionReason;
 
     public Facility() {
     }
@@ -180,5 +184,29 @@ public class Facility {
 
     public void setFacilityStatus(FacilityStatus facilityStatus) {
         this.facilityStatus = facilityStatus;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public String getDeletionReason() {
+        return deletionReason;
+    }
+
+    public void setDeletionReason(String deletionReason) {
+        this.deletionReason = deletionReason;
     }
 }

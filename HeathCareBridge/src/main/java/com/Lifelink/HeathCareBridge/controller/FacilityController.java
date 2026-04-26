@@ -20,14 +20,6 @@ public class FacilityController {
     @Autowired
     private FacilityService facilityService ;
 
-    // Note : these endpoints are only accessible to admin users as they are responsible for managing the facilities
-    // and resources in the healthcare system.
-    // 1) get facility by id .
-    // 2) add new facilit
- // so this endpoint is going to be public and it does not require any kind of login ..   // 4) get all facilities where a particular resource exists ( users can search for facilities based on the resources they need, such as ICU beds, ventilators, or specialized medical equipment. This endpoint would return a list of facilities that have the specified resource available. )
-    // 5) get all facilities in the dataBase .
-
-    // Add new facility .
     @PreAuthorize(("hasAuthority('SYSTEM_ADMIN')"))
     @PostMapping("/add")
     public ResponseEntity<FacilityResponseDTO> addFacility(
@@ -58,5 +50,19 @@ public class FacilityController {
                                                                       @RequestParam(name = "pageSize", defaultValue = AppConstant.PAGE_SIZE) Integer pageSize){
         List<FacilityResponseDTO> response = facilityService.getAllFacilities(pageNumber , pageSize);
         return new ResponseEntity<>(response , HttpStatus.OK);
-     }
+    }
+
+    @PreAuthorize(("hasAuthority('SYSTEM_ADMIN')"))
+    @DeleteMapping("/{facilityId}")
+    public ResponseEntity<String> deleteFacility(@PathVariable UUID facilityId ,@RequestParam(required = false) String message){
+        String response = facilityService.deleteFacility(facilityId , message);
+        return new ResponseEntity<>(response , HttpStatus.OK);
+    }
+    @PreAuthorize(("hasAuthority('SYSTEM_ADMIN')"))
+    @PatchMapping("/{facilityId}")
+    public ResponseEntity<String> restoreFacility(@PathVariable UUID facilityId ){
+        String response = facilityService.restoreFacility(facilityId);
+        return new ResponseEntity<>(response , HttpStatus.OK);
+    }
+
 }

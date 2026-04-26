@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,6 +68,39 @@ public class FacilityServiceImpl implements FacilityService{
             throw new DetailsNotFound("No facilities found in the database.");
         }
         return facilities.stream().map(facility -> modelMapper.map(facility , FacilityResponseDTO.class)).toList();
+    }
+
+
+    @Override
+    @Transactional
+    public String deleteFacility(UUID facilityId , String deletionReason) {
+        Facility facility = facilityRepository.findByIdAndIsDeletedFalse(facilityId)
+                .orElseThrow(() -> new DetailsNotFound("Facility not found with id: " + facilityId));
+
+        facility.setDeleted(true);
+        facility.setDeletedAt(LocalDateTime.now());
+        facility.setDeletionReason(deletionReason);
+        facilityRepository.save(facility);
+
+        return "Facility with id: " + facilityId + " has been soft deleted successfully.";
+    }
+
+    @Override
+    @Transactional
+    public String restoreFacility(UUID facilityId) {
+        Facility facility = facilityRepository.findById(facilityId)
+                .orElseThrow(() -> new DetailsNotFound("Facility not found with id: " + facilityId));
+
+        if (!facility.isDeleted()) {
+            return "Facility is already active.";
+        }
+
+        facility.setDeleted(false);
+        facility.setDeletedAt(null);
+        facility.setDeletionReason("restored by admin");
+        facilityRepository.save(facility);
+
+        return "Facility with id: " + facilityId + " has been restored successfully.";
     }
 
 

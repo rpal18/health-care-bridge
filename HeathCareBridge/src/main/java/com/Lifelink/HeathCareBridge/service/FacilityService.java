@@ -15,4 +15,7 @@ public interface FacilityService {
 
 
     List<FacilityResponseDTO> getAllFacilities(Integer pageNumber , Integer pageSize);
+
+    String deleteFacility(UUID facilityId , String message);
+    String restoreFacility(UUID facilityId);
 }
