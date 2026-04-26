@@ -1,5 +1,6 @@
 package com.Lifelink.HeathCareBridge.payload;
 
+import com.Lifelink.HeathCareBridge.model.FacilityRole;
 import com.Lifelink.HeathCareBridge.model.FacilityType;
 import com.Lifelink.HeathCareBridge.model.ResourceType;
 import jakarta.persistence.EnumType;
@@ -22,18 +23,23 @@ public class ResourceDTO {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Facility type is required")
     private FacilityType facilityType;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Facility role is required")
+    private FacilityRole facilityRole;
     @NotBlank(message = "Facility name is required")
     private String facilityName;
 
     public ResourceDTO() {
     }
 
-    public ResourceDTO(ResourceType resourceType, String name, int quantity, FacilityType facilityType, String facilityName) {
+    public ResourceDTO(ResourceType resourceType, String name, int quantity,
+                       FacilityType facilityType, String facilityName , FacilityRole facilityRole) {
         this.resourceType = resourceType;
         this.name = name;
         this.quantity = quantity;
         this.facilityType = facilityType;
         this.facilityName = facilityName;
+        this.facilityRole = facilityRole;
     }
 
     public ResourceType getResourceType() {
@@ -76,4 +82,11 @@ public class ResourceDTO {
         this.facilityName = facilityName;
     }
 
+    public FacilityRole getFacilityRole() {
+        return facilityRole;
+    }
+
+    public void setFacilityRole(FacilityRole facilityRole) {
+        this.facilityRole = facilityRole;
+    }
 }

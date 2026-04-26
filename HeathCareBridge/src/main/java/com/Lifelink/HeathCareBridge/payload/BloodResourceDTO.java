@@ -1,9 +1,6 @@
 package com.Lifelink.HeathCareBridge.payload;
 
-import com.Lifelink.HeathCareBridge.model.BloodComponent;
-import com.Lifelink.HeathCareBridge.model.BloodGroup;
-import com.Lifelink.HeathCareBridge.model.FacilityType;
-import com.Lifelink.HeathCareBridge.model.ResourceType;
+import com.Lifelink.HeathCareBridge.model.*;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
@@ -21,8 +18,11 @@ public class BloodResourceDTO extends ResourceDTO{
         this.bloodComponent = bloodComponent;
     }
 
-    public BloodResourceDTO(ResourceType resourceType, String name, int quantity, FacilityType facilityType, String facilityName, BloodGroup bloodGroup, BloodComponent bloodComponent) {
-        super(resourceType, name, quantity, facilityType, facilityName);
+    public BloodResourceDTO(ResourceType resourceType, String name, int quantity,
+                            FacilityType facilityType, String facilityName,
+                            BloodGroup bloodGroup, BloodComponent bloodComponent,
+                            FacilityRole facilityRole) {
+        super(resourceType, name, quantity, facilityType, facilityName , facilityRole);
         this.bloodGroup = bloodGroup;
         this.bloodComponent = bloodComponent;
     }

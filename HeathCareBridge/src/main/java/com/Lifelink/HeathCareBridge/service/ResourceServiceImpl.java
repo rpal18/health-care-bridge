@@ -68,6 +68,7 @@ public class ResourceServiceImpl  implements ResourceService{
         resource.setAvailable(resourceDTO.getQuantity() > 0);
         resource.setResourceType(resourceDTO.getResourceType());
         resource.setFacilityName(resourceDTO.getFacilityName());
+        resource.setFacilityRole(resourceDTO.getFacilityRole());
 
         Resource savedResource = resourceRepository.save(resource);
         System.out.println(savedResource);

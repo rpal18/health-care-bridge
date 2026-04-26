@@ -28,6 +28,10 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Facility type is required")
     private FacilityType facilityType;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Facility role is required")
+    private FacilityRole facilityRole;
     @NotBlank(message = "Facility name is required")
     private String facilityName;
     @NotNull(message = "Last updated timestamp is required")
@@ -115,5 +119,13 @@ public class Resource {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public FacilityRole getFacilityRole() {
+        return facilityRole;
+    }
+
+    public void setFacilityRole(FacilityRole facilityRole) {
+        this.facilityRole = facilityRole;
     }
 }

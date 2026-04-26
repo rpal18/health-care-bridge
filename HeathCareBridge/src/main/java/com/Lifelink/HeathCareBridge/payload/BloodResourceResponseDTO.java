@@ -1,8 +1,10 @@
 package com.Lifelink.HeathCareBridge.payload;
 
 import com.Lifelink.HeathCareBridge.model.Facility;
+import com.Lifelink.HeathCareBridge.model.FacilityRole;
 import com.Lifelink.HeathCareBridge.model.ResourceType;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BloodResourceResponseDTO extends ResourceResponseDTO{
@@ -10,8 +12,10 @@ public class BloodResourceResponseDTO extends ResourceResponseDTO{
 
     private String bloodComponent;
 
-    public BloodResourceResponseDTO(UUID id, String name, ResourceType resourceType, int quantity, Facility facility, boolean available, String bloodGroup, String bloodComponent) {
-        super(id, name, resourceType, quantity, facility, available);
+    public BloodResourceResponseDTO(UUID id, String name, ResourceType resourceType, int quantity,
+                                    Facility facility, boolean available, String bloodGroup,
+                                    String bloodComponent , FacilityRole facilityRole , LocalDateTime lastUpdated) {
+        super(id, name, resourceType, quantity, facility, available , lastUpdated,facilityRole);
         this.bloodGroup = bloodGroup;
         this.bloodComponent = bloodComponent;
     }

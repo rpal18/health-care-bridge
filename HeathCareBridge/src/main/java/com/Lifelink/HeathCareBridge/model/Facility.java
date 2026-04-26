@@ -3,17 +3,19 @@ package com.Lifelink.HeathCareBridge.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Facility {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -24,6 +26,10 @@ public class Facility {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FacilityType type;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Facility role is required")
+    private FacilityRole facilityRole;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "facility_roles", joinColumns = @JoinColumn(name = "facility_id"))
@@ -49,13 +55,15 @@ public class Facility {
     public Facility() {
     }
 
-    public Facility(Long id, String name, String address, FacilityType type,
-                    Set<FacilityRole> roles, boolean directPatientCare, Boolean is24x7,
-                    String phoneNumber, String email, double latitude, double longitude) {
+    public Facility(UUID id, String name, String address, FacilityType type,
+                    FacilityRole facilityRole, Set<FacilityRole> roles,
+                    boolean directPatientCare, Boolean is24x7, String phoneNumber,
+                    String email, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.type = type;
+        this.facilityRole = facilityRole;
         this.roles = roles;
         this.directPatientCare = directPatientCare;
         this.is24x7 = is24x7;
@@ -65,11 +73,11 @@ public class Facility {
         this.longitude = longitude;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -153,5 +161,11 @@ public class Facility {
         this.longitude = longitude;
     }
 
+    public FacilityRole getFacilityRole() {
+        return facilityRole;
+    }
 
+    public void setFacilityRole(FacilityRole facilityRole) {
+        this.facilityRole = facilityRole;
+    }
 }
