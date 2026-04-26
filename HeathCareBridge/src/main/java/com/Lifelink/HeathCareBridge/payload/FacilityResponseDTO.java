@@ -1,6 +1,7 @@
 package com.Lifelink.HeathCareBridge.payload;
 
 import com.Lifelink.HeathCareBridge.model.FacilityRole;
+import com.Lifelink.HeathCareBridge.model.FacilityStatus;
 import com.Lifelink.HeathCareBridge.model.FacilityType;
 
 import java.util.Set;
@@ -32,6 +33,8 @@ public class FacilityResponseDTO {
 
     private double longitude;
 
+    private FacilityStatus facilityStatus;
+
     // Constructor
 
 
@@ -40,7 +43,7 @@ public class FacilityResponseDTO {
 
     public FacilityResponseDTO(UUID id, String name, String address, FacilityType type, FacilityRole facilityRole,
                                Set<FacilityRole> roles, boolean directPatientCare, Boolean is24x7, String phoneNumber,
-                               String email, double latitude, double longitude) {
+                               String email, double latitude, double longitude , FacilityStatus facilityStatus) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -53,6 +56,7 @@ public class FacilityResponseDTO {
         this.email = email;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.facilityStatus = facilityStatus;
     }
 
     public UUID getId() {
@@ -149,5 +153,13 @@ public class FacilityResponseDTO {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public FacilityStatus getFacilityStatus() {
+        return facilityStatus;
+    }
+
+    public void setFacilityStatus(FacilityStatus facilityStatus) {
+        this.facilityStatus = facilityStatus;
     }
 }

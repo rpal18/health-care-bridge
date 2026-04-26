@@ -39,8 +39,9 @@ public class Facility {
 
     @Column(nullable = false)
     private Boolean directPatientCare;
-
-
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Facility status is required")
+    private FacilityStatus facilityStatus;
     private Boolean is24x7;
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")
@@ -167,5 +168,17 @@ public class Facility {
 
     public void setFacilityRole(FacilityRole facilityRole) {
         this.facilityRole = facilityRole;
+    }
+
+    public Boolean getDirectPatientCare() {
+        return directPatientCare;
+    }
+
+    public FacilityStatus getFacilityStatus() {
+        return facilityStatus;
+    }
+
+    public void setFacilityStatus(FacilityStatus facilityStatus) {
+        this.facilityStatus = facilityStatus;
     }
 }

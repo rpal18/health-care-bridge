@@ -60,7 +60,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authorizeHttpRequests(
-                        req -> req.requestMatchers("/api/facilities/add").hasAuthority("SYSTEM_ADMIN").
+                        req -> req.requestMatchers("/api/facilities/**").hasAuthority("SYSTEM_ADMIN").
                                 requestMatchers("/api/public/**").permitAll().
                                 requestMatchers("/api/auth/**").permitAll().
                                 requestMatchers("/v3/api-doc/**").permitAll().
