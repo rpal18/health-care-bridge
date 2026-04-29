@@ -1,12 +1,13 @@
-package com.Lifelink.HeathCareBridge.model;
+package com.Lifelink.HeathCareBridge.payload;
 
-import jakarta.persistence.*;
+import com.Lifelink.HeathCareBridge.model.BloodComponent;
+import com.Lifelink.HeathCareBridge.model.BloodGroup;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "donors")
-@DiscriminatorValue("DONOR")
-public class Donor extends User {
+public class DonorRequestDTO extends UserRequestDTO{
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Blood group is required")
     private BloodGroup bloodGroup;
@@ -14,7 +15,9 @@ public class Donor extends User {
     @NotNull(message = "Blood component is required")
     private BloodComponent bloodComponent;
     private String city;
-    private int age ;
+
+    @Min(18)
+    private int age;
 
     public BloodGroup getBloodGroup() {
         return bloodGroup;

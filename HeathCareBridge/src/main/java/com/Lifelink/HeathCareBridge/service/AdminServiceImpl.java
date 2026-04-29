@@ -3,7 +3,6 @@ package com.Lifelink.HeathCareBridge.service;
 import com.Lifelink.HeathCareBridge.exceptions.DetailsNotFound;
 import com.Lifelink.HeathCareBridge.model.Admin;
 import com.Lifelink.HeathCareBridge.model.Role;
-import com.Lifelink.HeathCareBridge.model.User;
 import com.Lifelink.HeathCareBridge.payload.UserRequestDTO;
 import com.Lifelink.HeathCareBridge.payload.UserResponseDTO;
 import com.Lifelink.HeathCareBridge.repository.AdminRepository;
