@@ -14,26 +14,26 @@ VALUES
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO Facility (
-    id, name, address, type, facility_role, direct_patient_care, facility_status, is24x7, is_deleted, latitude, longitude, deleted_at, deletion_reason, phone_number, email
-) VALUES
-(UUID_GENERATE_V4(), 'Facility 1', 'Address 1', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 12.971598, 77.594566, NULL, NULL, '+1234567890', 'facility1@example.com'),
-(UUID_GENERATE_V4(), 'Facility 2', 'Address 2', 'CLINIC', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 13.082680, 80.270721, NULL, NULL, '+1234567891', 'facility2@example.com'),
-(UUID_GENERATE_V4(), 'Facility 3', 'Address 3', 'BLOOD_BANK', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 28.704060, 77.102493, NULL, NULL, '+1234567892', 'facility3@example.com'),
-(UUID_GENERATE_V4(), 'Facility 4', 'Address 4', 'TRAUMA_CENTER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 19.076090, 72.877426, NULL, NULL, '+1234567893', 'facility4@example.com'),
-(UUID_GENERATE_V4(), 'Facility 5', 'Address 5', 'NGO', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 22.572645, 88.363892, NULL, NULL, '+1234567894', 'facility5@example.com'),
-(UUID_GENERATE_V4(), 'Facility 6', 'Address 6', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 12.295810, 76.639381, NULL, NULL, '+1234567895', 'facility6@example.com'),
-(UUID_GENERATE_V4(), 'Facility 7', 'Address 7', 'CLINIC', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 15.317277, 75.713888, NULL, NULL, '+1234567896', 'facility7@example.com'),
-(UUID_GENERATE_V4(), 'Facility 8', 'Address 8', 'BLOOD_BANK', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 11.016844, 76.955833, NULL, NULL, '+1234567897', 'facility8@example.com'),
-(UUID_GENERATE_V4(), 'Facility 9', 'Address 9', 'TRAUMA_CENTER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 10.850516, 76.271083, NULL, NULL, '+1234567898', 'facility9@example.com'),
-(UUID_GENERATE_V4(), 'Facility 10', 'Address 10', 'NGO', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 9.931233, 76.267304, NULL, NULL, '+1234567899', 'facility10@example.com'),
-(UUID_GENERATE_V4(), 'Facility 11', 'Address 11', 'GOVT_BODY', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 13.628755, 79.419179, NULL, NULL, '+1234567800', 'facility11@example.com'),
-(UUID_GENERATE_V4(), 'Facility 12', 'Address 12', 'OTHER', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 17.385044, 78.486671, NULL, NULL, '+1234567801', 'facility12@example.com'),
-(UUID_GENERATE_V4(), 'Facility 13', 'Address 13', 'HOSPITAL', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 18.520430, 73.856744, NULL, NULL, '+1234567802', 'facility13@example.com'),
-(UUID_GENERATE_V4(), 'Facility 14', 'Address 14', 'CLINIC', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 19.218331, 72.978090, NULL, NULL, '+1234567803', 'facility14@example.com'),
-(UUID_GENERATE_V4(), 'Facility 15', 'Address 15', 'BLOOD_BANK', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 21.145800, 79.088155, NULL, NULL, '+1234567804', 'facility15@example.com'),
-(UUID_GENERATE_V4(), 'Facility 16', 'Address 16', 'TRAUMA_CENTER', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 22.719569, 75.857726, NULL, NULL, '+1234567805', 'facility16@example.com'),
-(UUID_GENERATE_V4(), 'Facility 17', 'Address 17', 'NGO', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 23.259933, 77.412615, NULL, NULL, '+1234567806', 'facility17@example.com'),
-(UUID_GENERATE_V4(), 'Facility 18', 'Address 18', 'GOVT_BODY', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 26.912434, 75.787271, NULL, NULL, '+1234567807', 'facility18@example.com'),
-(UUID_GENERATE_V4(), 'Facility 19', 'Address 19', 'OTHER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 25.317645, 82.973914, NULL, NULL, '+1234567808', 'facility19@example.com'),
-(UUID_GENERATE_V4(), 'Facility 20', 'Address 20', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 27.176670, 78.008075, NULL, NULL, '+1234567809', 'facility20@example.com');
+--INSERT INTO Facility (
+--    id, name, address, type, facility_role, direct_patient_care, facility_status, is24x7, is_deleted, latitude, longitude, deleted_at, deletion_reason, phone_number, email
+--) VALUES
+--(UUID_GENERATE_V4(), 'Facility 1', 'Address 1', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 12.971598, 77.594566, NULL, NULL, '+1234567890', 'facility1@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 2', 'Address 2', 'CLINIC', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 13.082680, 80.270721, NULL, NULL, '+1234567891', 'facility2@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 3', 'Address 3', 'BLOOD_BANK', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 28.704060, 77.102493, NULL, NULL, '+1234567892', 'facility3@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 4', 'Address 4', 'TRAUMA_CENTER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 19.076090, 72.877426, NULL, NULL, '+1234567893', 'facility4@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 5', 'Address 5', 'NGO', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 22.572645, 88.363892, NULL, NULL, '+1234567894', 'facility5@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 6', 'Address 6', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 12.295810, 76.639381, NULL, NULL, '+1234567895', 'facility6@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 7', 'Address 7', 'CLINIC', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 15.317277, 75.713888, NULL, NULL, '+1234567896', 'facility7@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 8', 'Address 8', 'BLOOD_BANK', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 11.016844, 76.955833, NULL, NULL, '+1234567897', 'facility8@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 9', 'Address 9', 'TRAUMA_CENTER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 10.850516, 76.271083, NULL, NULL, '+1234567898', 'facility9@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 10', 'Address 10', 'NGO', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 9.931233, 76.267304, NULL, NULL, '+1234567899', 'facility10@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 11', 'Address 11', 'GOVT_BODY', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 13.628755, 79.419179, NULL, NULL, '+1234567800', 'facility11@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 12', 'Address 12', 'OTHER', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 17.385044, 78.486671, NULL, NULL, '+1234567801', 'facility12@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 13', 'Address 13', 'HOSPITAL', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 18.520430, 73.856744, NULL, NULL, '+1234567802', 'facility13@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 14', 'Address 14', 'CLINIC', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 19.218331, 72.978090, NULL, NULL, '+1234567803', 'facility14@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 15', 'Address 15', 'BLOOD_BANK', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 21.145800, 79.088155, NULL, NULL, '+1234567804', 'facility15@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 16', 'Address 16', 'TRAUMA_CENTER', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 22.719569, 75.857726, NULL, NULL, '+1234567805', 'facility16@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 17', 'Address 17', 'NGO', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 23.259933, 77.412615, NULL, NULL, '+1234567806', 'facility17@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 18', 'Address 18', 'GOVT_BODY', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 26.912434, 75.787271, NULL, NULL, '+1234567807', 'facility18@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 19', 'Address 19', 'OTHER', 'RESOURCE_PROVIDER', false, 'BLOCKED', false, false, 25.317645, 82.973914, NULL, NULL, '+1234567808', 'facility19@example.com'),
+--(UUID_GENERATE_V4(), 'Facility 20', 'Address 20', 'HOSPITAL', 'PRIMARY_CARE', true, 'ACTIVE', true, false, 27.176670, 78.008075, NULL, NULL, '+1234567809', 'facility20@example.com');

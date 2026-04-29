@@ -11,6 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "role_type", discriminatorType = DiscriminatorType.STRING)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,7 +31,7 @@ public class User {
     @ElementCollection(targetClass = Role.class , fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles" , joinColumns = @JoinColumn( name = "user_id"))
     @Enumerated(value = EnumType.STRING)
-    private Set<Role> roles;
+    private Set<Role> allRoles;
 
     public User() {
     }
@@ -40,7 +42,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.roles = roles;
+        this.allRoles = roles;
     }
 
     public UUID getId() {
@@ -84,10 +86,11 @@ public class User {
     }
 
     public Set<Role> getRoles() {
-        return roles;
+        return allRoles;
     }
 
     public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+        this.allRoles = roles;
     }
+
 }

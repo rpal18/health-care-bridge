@@ -4,7 +4,6 @@ import com.Lifelink.HeathCareBridge.payload.LoginRequest;
 import com.Lifelink.HeathCareBridge.payload.UserInfoResponse;
 import com.Lifelink.HeathCareBridge.security.JwtUtils;
 import com.Lifelink.HeathCareBridge.security.UserDetailsImpl;
-import com.Lifelink.HeathCareBridge.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +34,12 @@ public class AuthController {
 
     private JwtUtils jwtUtils;
 
-    private UserService userService;
+
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
-                          JwtUtils jwtUtils, UserService userService) {
+                          JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
-        this.userService = userService;
         this.jwtUtils = jwtUtils;
 
     }

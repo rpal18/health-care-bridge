@@ -21,7 +21,6 @@ public class UserRequestDTO {
     @Pattern(regexp = "^(?:\\+91|0)?[6-9]\\d{9}$", message = "Phone number should be valid")
     private String phoneNumber;
 
-    private Set<String> roles; // Role names as strings
 
     public String getName() {
         return name;
@@ -51,11 +50,4 @@ public class UserRequestDTO {
         return phoneNumber;
     }
 
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
 }

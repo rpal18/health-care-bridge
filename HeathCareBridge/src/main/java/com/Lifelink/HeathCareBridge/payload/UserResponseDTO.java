@@ -8,7 +8,8 @@ public class UserResponseDTO {
     private String name;
     private String email;
     private String phoneNumber;
-    private Set<String> roles; // Role names as strings
+    private Set<String> roles;
+
 
    public UUID getId(){
        return id;

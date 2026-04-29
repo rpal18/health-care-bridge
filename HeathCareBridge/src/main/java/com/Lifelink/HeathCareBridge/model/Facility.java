@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import jakarta.validation.constraints.Pattern; 
+
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -56,6 +56,12 @@ public class Facility {
     private boolean isDeleted = false;
     private LocalDateTime deletedAt ;
     private String deletionReason;
+
+    @Column(nullable = false , updatable = false)
+    private LocalDateTime approvedOn;
+
+    @OneToOne(mappedBy = "facility", cascade = CascadeType.ALL)
+    private Admin facilityAdmin;
 
     public Facility() {
     }
@@ -208,5 +214,21 @@ public class Facility {
 
     public void setDeletionReason(String deletionReason) {
         this.deletionReason = deletionReason;
+    }
+
+    public Admin getFacilityAdmin() {
+        return facilityAdmin;
+    }
+
+    public void setFacilityAdmin(Admin facilityAdmin) {
+        this.facilityAdmin = facilityAdmin;
+    }
+
+    public LocalDateTime getApprovedOn() {
+        return approvedOn;
+    }
+
+    public void setApprovedOn(LocalDateTime approvedOn) {
+        this.approvedOn = approvedOn;
     }
 }
