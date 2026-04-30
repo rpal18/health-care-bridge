@@ -12,6 +12,7 @@ public class BloodResourceResponseDTO extends ResourceResponseDTO{
 
     private String bloodComponent;
 
+
     public BloodResourceResponseDTO() {
     }
 

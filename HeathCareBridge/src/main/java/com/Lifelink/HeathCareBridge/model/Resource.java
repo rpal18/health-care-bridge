@@ -36,6 +36,10 @@ public class Resource {
     private String facilityName;
     @NotNull(message = "Last updated timestamp is required")
     private LocalDateTime lastUpdated;
+    @NotBlank(message = "please add facility phone number")
+    private String facilityPhoneNumber;
+    @NotBlank(message = " please add facility email")
+    private String facilityEmail;
 
     // constructors
 
@@ -45,7 +49,7 @@ public class Resource {
 
     public Resource(UUID id, String name, ResourceType resourceType,
                     int quantity, boolean available, FacilityType facilityType,
-                    String facilityName, LocalDateTime lastUpdated) {
+                    String facilityName, LocalDateTime lastUpdated , String facilityPhoneNumber , String facilityEmail) {
         this.id = id;
         this.name = name;
         this.resourceType = resourceType;
@@ -54,6 +58,8 @@ public class Resource {
         this.facilityType = facilityType;
         this.facilityName = facilityName;
         this.lastUpdated = lastUpdated;
+        this.facilityEmail = facilityEmail;
+        this.facilityPhoneNumber = facilityPhoneNumber;
     }
 
     // getters and setters
@@ -127,5 +133,21 @@ public class Resource {
 
     public void setFacilityRole(FacilityRole facilityRole) {
         this.facilityRole = facilityRole;
+    }
+
+    public String getFacilityPhoneNumber() {
+        return facilityPhoneNumber;
+    }
+
+    public void setFacilityPhoneNumber(String facilityPhoneNumber) {
+        this.facilityPhoneNumber = facilityPhoneNumber;
+    }
+
+    public String getFacilityEmail() {
+        return facilityEmail;
+    }
+
+    public void setFacilityEmail(String facilityEmail) {
+        this.facilityEmail = facilityEmail;
     }
 }

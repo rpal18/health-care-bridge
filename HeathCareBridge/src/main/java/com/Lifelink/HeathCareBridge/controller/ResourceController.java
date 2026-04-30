@@ -4,16 +4,14 @@ import com.Lifelink.HeathCareBridge.exceptions.DetailsNotFound;
 import com.Lifelink.HeathCareBridge.model.Admin;
 import com.Lifelink.HeathCareBridge.model.Resource;
 import com.Lifelink.HeathCareBridge.model.User;
-import com.Lifelink.HeathCareBridge.payload.BloodResourceDTO;
-import com.Lifelink.HeathCareBridge.payload.BloodResourceResponseDTO;
-import com.Lifelink.HeathCareBridge.payload.ResourceDTO;
-import com.Lifelink.HeathCareBridge.payload.ResourceResponseDTO;
+import com.Lifelink.HeathCareBridge.payload.*;
 import com.Lifelink.HeathCareBridge.repository.AdminRepository;
 import com.Lifelink.HeathCareBridge.service.ResourceService;
 import com.Lifelink.HeathCareBridge.util.AuthUtil;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +56,27 @@ public class ResourceController {
 
         BloodResourceResponseDTO responseDTO = resourceService.addBloodResource(bloodResourceDTO , admin);
         return ResponseEntity.ok(responseDTO);
+    }
+    @PreAuthorize("hasAuthority('ORG_ADMIN')")
+    @PatchMapping("/update/{resourceId}/quantity/{quantity}")
+    public ResponseEntity<ResourceResponseDTO> updateResourceQuantity(@PathVariable UUID resourceId,
+                                                                      @PathVariable int quantity) {
+        User user = authUtil.loggedInUser();
+        Admin admin = adminRepository.findById(user.getId()).orElseThrow(() ->
+                new DetailsNotFound("Admin details not found for user: " + user.getUserName()));
+        ResourceResponseDTO responseDTO = resourceService.updateResourceQuantity(resourceId, quantity , admin);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @PreAuthorize("hasAuthority('ORG_ADMIN')")
+    @PatchMapping("/allocate")
+    public ResponseEntity<String> allocateResource(@RequestParam UUID resourceId ,
+                                                                @RequestParam int quantity) {
+        User user = authUtil.loggedInUser();
+        Admin admin = adminRepository.findById(user.getId()).orElseThrow(() ->
+                new DetailsNotFound("Admin details not found for user: " + user.getUserName()));
+        int quantityLeft = resourceService.allocateResource(resourceId, admin , quantity);
+        return new ResponseEntity<>(" this resource is left with " + quantityLeft , HttpStatus.OK);
     }
 
 

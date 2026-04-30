@@ -2,12 +2,10 @@ package com.Lifelink.HeathCareBridge.service;
 
 import com.Lifelink.HeathCareBridge.model.Admin;
 import com.Lifelink.HeathCareBridge.model.Resource;
-import com.Lifelink.HeathCareBridge.payload.BloodResourceDTO;
-import com.Lifelink.HeathCareBridge.payload.BloodResourceResponseDTO;
-import com.Lifelink.HeathCareBridge.payload.ResourceDTO;
-import com.Lifelink.HeathCareBridge.payload.ResourceResponseDTO;
+import com.Lifelink.HeathCareBridge.payload.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ResourceService {
 
@@ -16,5 +14,10 @@ public interface ResourceService {
     List<Resource> getAllResource();
 
     BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO , Admin admin);
+
+    ResourceResponseDTO updateResourceQuantity(UUID resourceId, int quantity , Admin admin);
+    int allocateResource(UUID resourceID , Admin adminm, int quantity);
+
+
 }
 
