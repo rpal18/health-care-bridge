@@ -1,6 +1,7 @@
 package com.Lifelink.HeathCareBridge.repository;
 
 import com.Lifelink.HeathCareBridge.model.Facility;
+import com.Lifelink.HeathCareBridge.model.FacilityType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface FacilityRepository extends JpaRepository<Facility, UUID> {
     Optional<Facility> findByIdAndIsDeletedFalse(UUID facilityId);
 
     List<Facility> findAllByIsDeletedFalse();
+
+    Optional<Facility> findFacilityByEmailAndPhoneNumber(String email, String  phoneNumber);
 }

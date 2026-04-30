@@ -18,11 +18,8 @@ public class BloodResourceDTO extends ResourceDTO{
         this.bloodComponent = bloodComponent;
     }
 
-    public BloodResourceDTO(ResourceType resourceType, String name, int quantity,
-                            FacilityType facilityType, String facilityName,
-                            BloodGroup bloodGroup, BloodComponent bloodComponent,
-                            FacilityRole facilityRole) {
-        super(resourceType, name, quantity, facilityType, facilityName , facilityRole);
+    public BloodResourceDTO(ResourceType resourceType, String name, int quantity, BloodGroup bloodGroup, BloodComponent bloodComponent) {
+        super(resourceType, name, quantity);
         this.bloodGroup = bloodGroup;
         this.bloodComponent = bloodComponent;
     }

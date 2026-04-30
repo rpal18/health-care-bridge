@@ -20,26 +20,13 @@ public class ResourceDTO {
     @Min(value = 0, message = "Quantity must be non-negative")
     private int quantity;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Facility type is required")
-    private FacilityType facilityType;
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Facility role is required")
-    private FacilityRole facilityRole;
-    @NotBlank(message = "Facility name is required")
-    private String facilityName;
-
     public ResourceDTO() {
     }
 
-    public ResourceDTO(ResourceType resourceType, String name, int quantity,
-                       FacilityType facilityType, String facilityName , FacilityRole facilityRole) {
+    public ResourceDTO(ResourceType resourceType, String name, int quantity) {
         this.resourceType = resourceType;
         this.name = name;
         this.quantity = quantity;
-        this.facilityType = facilityType;
-        this.facilityName = facilityName;
-        this.facilityRole = facilityRole;
     }
 
     public ResourceType getResourceType() {
@@ -64,29 +51,5 @@ public class ResourceDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public FacilityType getFacilityType() {
-        return facilityType;
-    }
-
-    public void setFacilityType(FacilityType facilityType) {
-        this.facilityType = facilityType;
-    }
-
-    public String getFacilityName() {
-        return facilityName;
-    }
-
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
-    }
-
-    public FacilityRole getFacilityRole() {
-        return facilityRole;
-    }
-
-    public void setFacilityRole(FacilityRole facilityRole) {
-        this.facilityRole = facilityRole;
     }
 }

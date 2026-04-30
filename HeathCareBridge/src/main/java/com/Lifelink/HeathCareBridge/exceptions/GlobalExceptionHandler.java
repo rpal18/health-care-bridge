@@ -2,6 +2,7 @@ package com.Lifelink.HeathCareBridge.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,4 +24,9 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
         return new ResponseEntity<>(message , HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> handleAccessDenied(AccessDeniedException ex) {
+        return new ResponseEntity<>("Access denied: " + ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
 }
