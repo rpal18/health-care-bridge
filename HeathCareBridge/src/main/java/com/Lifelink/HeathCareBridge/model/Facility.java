@@ -1,5 +1,6 @@
 package com.Lifelink.HeathCareBridge.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -61,6 +62,7 @@ public class Facility {
     private LocalDateTime approvedOn;
 
     @OneToOne(mappedBy = "facility", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Admin facilityAdmin;
 
     public Facility() {

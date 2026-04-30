@@ -1,5 +1,6 @@
 package com.Lifelink.HeathCareBridge.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -10,9 +11,11 @@ import java.util.UUID;
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "facility_id")
+    @JsonManagedReference
     private Facility facility;
 
+    @Column(name = "role")
     private final Role role = Role.ORG_ADMIN;
 
     public Admin() {

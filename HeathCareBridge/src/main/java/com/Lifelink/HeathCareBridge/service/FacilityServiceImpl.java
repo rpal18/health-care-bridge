@@ -158,7 +158,21 @@ public class FacilityServiceImpl implements FacilityService{
                 .orElseThrow(() -> new DetailsNotFound("Admin not found with id: " + adminId));
         facility.setFacilityAdmin(admin);
         admin.setFacility(facility);
+        adminRepository.save(admin);
+        facilityRepository.save(facility);
         return "Admin with id: " + adminId + " has been assigned to facility with id: " + facilityId + " successfully.";
+    }
+
+    @Override
+    public FacilityResponseDTO getFacilityDetailsForOrgAdmin(User user) {
+        Admin admin = adminRepository.findById(user.getId())
+                .orElseThrow(() -> new DetailsNotFound("Admin details not found!"));
+
+        if (admin.getFacility() == null) {
+            throw new DetailsNotFound("Admin is not assigned to any facility!");
+        }
+        Facility facility = admin.getFacility();
+        return modelMapper.map(facility, FacilityResponseDTO.class);
     }
 
     private static Facility getFacilityFromRequestedFacility(RequestedFacility requestedFacility) {

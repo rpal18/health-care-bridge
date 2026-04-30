@@ -1,6 +1,7 @@
 package com.Lifelink.HeathCareBridge.service;
 
 import com.Lifelink.HeathCareBridge.model.RequestedFacility;
+import com.Lifelink.HeathCareBridge.model.User;
 import com.Lifelink.HeathCareBridge.payload.FacilityDTO;
 import com.Lifelink.HeathCareBridge.payload.FacilityResponseDTO;
 
@@ -25,4 +26,7 @@ public interface FacilityService {
     String rejectFacilityRequest(UUID requestedFacilityId);
 
     String assignFacilityAdmin(UUID facilityId, UUID adminId);
+
+    FacilityResponseDTO getFacilityDetailsForOrgAdmin(User user);
+
 }
