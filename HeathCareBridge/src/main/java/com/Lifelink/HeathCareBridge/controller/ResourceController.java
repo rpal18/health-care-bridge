@@ -31,7 +31,7 @@ public class ResourceController {
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
     private final AdminRepository adminRepository;
 
-    public ResourceController(ResourceService resourceService , AuthUtil authUtil,
+    public ResourceController(ResourceService resourceService, AuthUtil authUtil,
                               AdminRepository adminRepository) {
         this.resourceService = resourceService;
         this.authUtil = authUtil;
@@ -40,24 +40,29 @@ public class ResourceController {
 
     @PreAuthorize("hasAuthority('ORG_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<ResourceResponseDTO> addResource( @RequestBody @Valid ResourceDTO resourceDTO) {
+    public ResponseEntity<ResourceResponseDTO> addResource(@RequestBody @Valid ResourceDTO resourceDTO) {
         User user = authUtil.loggedInUser();
-        Admin admin = adminRepository.findById(user.getId()).orElseThrow(()->
+        Admin admin = adminRepository.findById(user.getId()).orElseThrow(() ->
                 new DetailsNotFound("Admin details not found for user: " + user.getUserName()));
 
-        ResourceResponseDTO responseDTO = resourceService.addResource(resourceDTO , admin);
+        ResourceResponseDTO responseDTO = resourceService.addResource(resourceDTO, admin);
         return ResponseEntity.ok(responseDTO);
     }
 
     @PostMapping("/add/blood-resource")
-    public ResponseEntity<BloodResourceResponseDTO> addBloodResource(@RequestBody @Valid BloodResourceDTO bloodResourceDTO) {
-        BloodResourceResponseDTO responseDTO = resourceService.addBloodResource(bloodResourceDTO);
+    public ResponseEntity<BloodResourceResponseDTO> addBloodResource(
+            @RequestBody @Valid BloodResourceDTO bloodResourceDTO) {
+        User user = authUtil.loggedInUser();
+        Admin admin = adminRepository.findById(user.getId()).orElseThrow(() ->
+                new DetailsNotFound("Admin details not found for user: " + user.getUserName()));
+
+        BloodResourceResponseDTO responseDTO = resourceService.addBloodResource(bloodResourceDTO , admin);
         return ResponseEntity.ok(responseDTO);
     }
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<Resource>> getAllResources(){
+    public ResponseEntity<List<Resource>> getAllResources() {
         List<Resource> ans = resourceService.getAllResource();
         return ResponseEntity.ok(ans);
     }

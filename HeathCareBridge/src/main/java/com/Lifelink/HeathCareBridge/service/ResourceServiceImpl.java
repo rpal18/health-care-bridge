@@ -7,6 +7,7 @@ import com.Lifelink.HeathCareBridge.payload.BloodResourceDTO;
 import com.Lifelink.HeathCareBridge.payload.BloodResourceResponseDTO;
 import com.Lifelink.HeathCareBridge.payload.ResourceDTO;
 import com.Lifelink.HeathCareBridge.payload.ResourceResponseDTO;
+import com.Lifelink.HeathCareBridge.repository.BloodRepository;
 import com.Lifelink.HeathCareBridge.repository.FacilityRepository;
 import com.Lifelink.HeathCareBridge.repository.ResourceRepository;
 import org.modelmapper.ModelMapper;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.access.AccessDeniedException;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,13 +30,16 @@ public class ResourceServiceImpl  implements ResourceService{
     private final FacilityRepository facilityRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
+    private final BloodRepository bloodRepository;
 
     @Autowired
     public ResourceServiceImpl(ResourceRepository resourceRepository , ModelMapper
-            modelMapper , FacilityRepository facilityRepository) {
+            modelMapper , FacilityRepository facilityRepository,
+                               BloodRepository bloodRepository) {
         this.modelMapper = modelMapper;
         this.resourceRepository = resourceRepository;
         this.facilityRepository = facilityRepository;
+        this.bloodRepository = bloodRepository;
     }
     @Override
     @Transactional
@@ -91,7 +95,40 @@ public class ResourceServiceImpl  implements ResourceService{
     }
 
     @Override
-    public BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO) {
-        return null;
+    @Transactional
+    public BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO , Admin admin) {
+        Facility facility = admin.getFacility();
+        if(facility == null){
+            throw new DetailsNotFound("Admin is not associated with any facility");
+        }
+        Blood existingResource = bloodRepository.
+                findByNameAndFacilityNameAndFacilityTypeAndResourceTypeAndBloodComponent(
+                bloodResourceDTO.getName(), facility.getName(), facility.getType() ,
+                        ResourceType.BLOOD , bloodResourceDTO.getBloodComponent());
+        int quantity = bloodResourceDTO.getQuantity();
+        if (existingResource != null) {
+            if (quantity < 0) {
+                throw new IllegalArgument("Quantity to add cannot be negative");
+            }
+
+            existingResource.setQuantity(existingResource.getQuantity() + quantity);
+            existingResource.setAvailable(existingResource.getQuantity() > 0);
+            existingResource.setLastUpdated(LocalDateTime.now());
+            Resource updatedResource = resourceRepository.save(existingResource);
+            return modelMapper.map(updatedResource, BloodResourceResponseDTO.class);
+        }
+        Blood bloodResource = new Blood();
+        bloodResource.setName(bloodResourceDTO.getName());
+        bloodResource.setFacilityType(facility.getType());
+        bloodResource.setQuantity(quantity);
+        bloodResource.setLastUpdated(LocalDateTime.now());
+        bloodResource.setAvailable(quantity > 0);
+        bloodResource.setResourceType(ResourceType.BLOOD);
+        bloodResource.setFacilityName(facility.getName());
+        bloodResource.setFacilityRole(facility.getFacilityRole());
+        bloodResource.setBloodComponent(bloodResourceDTO.getBloodComponent());
+        bloodResource.setBloodGroup(bloodResourceDTO.getBloodGroup());
+        Blood savedBloodResource = bloodRepository.save(bloodResource);
+        return modelMapper.map(savedBloodResource, BloodResourceResponseDTO.class);
     }
 }

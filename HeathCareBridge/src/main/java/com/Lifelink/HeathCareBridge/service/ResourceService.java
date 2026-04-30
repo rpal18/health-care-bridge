@@ -15,6 +15,6 @@ public interface ResourceService {
 
     List<Resource> getAllResource();
 
-    BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO);
+    BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO , Admin admin);
 }
 

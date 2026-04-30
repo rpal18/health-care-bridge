@@ -26,6 +26,17 @@ public class Blood extends Resource{
         super(id, name, resourceType, quantity, available, facilityType, facilityName, lastUpdated);
     }
 
+    public Blood(BloodGroup bloodGroup, BloodComponent bloodComponent) {
+        this.bloodGroup = bloodGroup;
+        this.bloodComponent = bloodComponent;
+    }
+
+    public Blood(UUID id, String name, ResourceType resourceType, int quantity, boolean available, FacilityType facilityType, String facilityName, LocalDateTime lastUpdated, BloodGroup bloodGroup, BloodComponent bloodComponent) {
+        super(id, name, resourceType, quantity, available, facilityType, facilityName, lastUpdated);
+        this.bloodGroup = bloodGroup;
+        this.bloodComponent = bloodComponent;
+    }
+
     public BloodGroup getBloodGroup() {
         return bloodGroup;
     }

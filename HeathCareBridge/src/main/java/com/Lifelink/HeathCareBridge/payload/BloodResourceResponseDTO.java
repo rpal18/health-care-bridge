@@ -12,6 +12,9 @@ public class BloodResourceResponseDTO extends ResourceResponseDTO{
 
     private String bloodComponent;
 
+    public BloodResourceResponseDTO() {
+    }
+
     public BloodResourceResponseDTO(UUID id, String name, ResourceType resourceType, int quantity,
                                     Facility facility, boolean available, String bloodGroup,
                                     String bloodComponent , FacilityRole facilityRole , LocalDateTime lastUpdated) {
