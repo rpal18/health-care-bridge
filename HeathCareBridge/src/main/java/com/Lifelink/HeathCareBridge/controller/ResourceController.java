@@ -25,7 +25,6 @@ public class ResourceController {
 
     private final ResourceService resourceService;
     private final AuthUtil authUtil;
-
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
     private final AdminRepository adminRepository;
 

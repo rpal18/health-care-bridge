@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern; 
+import jakarta.validation.constraints.Pattern;
+import org.locationtech.jts.geom.Point;
 
 
 import java.time.LocalDateTime;
@@ -13,6 +14,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table( indexes = {
+        @Index(name="idx_facility_location", columnList = "location")
+})
 public class Facility {
 
     @Id
@@ -51,19 +55,21 @@ public class Facility {
     @Email(message = "Invalid email address")
     private String email;
 
-    private double latitude;
 
-    private double longitude;
     private boolean isDeleted = false;
     private LocalDateTime deletedAt ;
     private String deletionReason;
 
     @Column(nullable = false , updatable = false)
     private LocalDateTime approvedOn;
+    @NotNull
+    @Column(name = "location", columnDefinition = "geography(Point , 4326)")
+    private Point location;
 
     @OneToOne(mappedBy = "facility", cascade = CascadeType.ALL)
     @JsonBackReference
     private Admin facilityAdmin;
+
 
     public Facility() {
     }
@@ -71,7 +77,7 @@ public class Facility {
     public Facility(UUID id, String name, String address, FacilityType type,
                     FacilityRole facilityRole, Set<FacilityRole> roles,
                     Boolean directPatientCare, Boolean is24x7, String phoneNumber,
-                    String email, double latitude, double longitude) {
+                    String email , Point location) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -82,8 +88,7 @@ public class Facility {
         this.is24x7 = is24x7;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
     }
 
     public UUID getId() {
@@ -157,23 +162,6 @@ public class Facility {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     public FacilityRole getFacilityRole() {
         return facilityRole;
     }
@@ -232,5 +220,13 @@ public class Facility {
 
     public void setApprovedOn(LocalDateTime approvedOn) {
         this.approvedOn = approvedOn;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
     }
 }

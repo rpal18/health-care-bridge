@@ -17,11 +17,8 @@ public class AdminSeeder implements CommandLineRunner {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private UserRepository userRepository;
-
-
     @Override
     public void run(String... args) throws Exception {
         String adminUserName = System.getenv("adminUsername");

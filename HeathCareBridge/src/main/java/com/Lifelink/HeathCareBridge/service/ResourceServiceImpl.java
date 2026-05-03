@@ -21,27 +21,29 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ResourceServiceImpl  implements ResourceService{
+public class ResourceServiceImpl implements ResourceService {
 
     private final ResourceRepository resourceRepository;
     private final ModelMapper modelMapper;
     private final FacilityRepository facilityRepository;
     private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
     private final BloodRepository bloodRepository;
+
     @Autowired
-    public ResourceServiceImpl(ResourceRepository resourceRepository , ModelMapper
-            modelMapper , FacilityRepository facilityRepository,
+    public ResourceServiceImpl(ResourceRepository resourceRepository, ModelMapper
+            modelMapper, FacilityRepository facilityRepository,
                                BloodRepository bloodRepository) {
         this.modelMapper = modelMapper;
         this.resourceRepository = resourceRepository;
         this.facilityRepository = facilityRepository;
         this.bloodRepository = bloodRepository;
     }
+
     @Override
     @Transactional
     public ResourceResponseDTO addResource(ResourceDTO resourceDTO, Admin admin) {
         Facility facility = admin.getFacility();
-        if(facility == null){
+        if (facility == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
         }
         String name = resourceDTO.getName();
@@ -49,7 +51,7 @@ public class ResourceServiceImpl  implements ResourceService{
         int quantity = resourceDTO.getQuantity();
 
         Resource existingResource = resourceRepository.findByNameAndFacilityNameAndFacilityTypeAndResourceType(
-                name, facility.getName(), facility.getType() , resourceType);
+                name, facility.getName(), facility.getType(), resourceType);
 
         if (existingResource != null) {
             if (quantity < 0) {
@@ -76,25 +78,26 @@ public class ResourceServiceImpl  implements ResourceService{
         Resource savedResource = resourceRepository.save(resource);
         return modelMapper.map(savedResource, ResourceResponseDTO.class);
     }
+
     @Override
     public List<Resource> getAllResource() {
         List<Resource> resources = resourceRepository.findAll();
         List<ResourceResponseDTO> response = resources.stream().
-                map(element -> modelMapper.map(element , ResourceResponseDTO.class)).toList();
+                map(element -> modelMapper.map(element, ResourceResponseDTO.class)).toList();
         return resources;
     }
 
     @Override
     @Transactional
-    public BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO , Admin admin) {
+    public BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO, Admin admin) {
         Facility facility = admin.getFacility();
-        if(facility == null){
+        if (facility == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
         }
         Blood existingResource = bloodRepository.
                 findByNameAndFacilityNameAndFacilityTypeAndResourceTypeAndBloodComponent(
-                bloodResourceDTO.getName(), facility.getName(), facility.getType() ,
-                        ResourceType.BLOOD , bloodResourceDTO.getBloodComponent());
+                        bloodResourceDTO.getName(), facility.getName(), facility.getType(),
+                        ResourceType.BLOOD, bloodResourceDTO.getBloodComponent());
         int quantity = bloodResourceDTO.getQuantity();
         if (existingResource != null) {
             if (quantity < 0) {
@@ -126,14 +129,14 @@ public class ResourceServiceImpl  implements ResourceService{
 
     @Override
     @Transactional
-    public ResourceResponseDTO updateResourceQuantity(UUID resourceId, int quantity , Admin admin) {
+    public ResourceResponseDTO updateResourceQuantity(UUID resourceId, int quantity, Admin admin) {
         Resource resource = resourceRepository.findById(resourceId).orElseThrow(() -> new DetailsNotFound("Resource not " +
                 "found with id: " + resourceId));
         Facility facility = admin.getFacility();
-        if(facility == null){
+        if (facility == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
         }
-        resource.setQuantity(resource.getQuantity() +quantity);
+        resource.setQuantity(resource.getQuantity() + quantity);
         resource.setAvailable(resource.getQuantity() > 0);
         resource.setLastUpdated(LocalDateTime.now());
         Resource updatedResource = resourceRepository.save(resource);
@@ -142,18 +145,18 @@ public class ResourceServiceImpl  implements ResourceService{
 
     @Override
     @Transactional
-    public int allocateResource(UUID resourceId, Admin admin , int quantity) {
+    public int allocateResource(UUID resourceId, Admin admin, int quantity) {
         Resource resource = resourceRepository.findById(resourceId).orElseThrow(() -> new DetailsNotFound("Resource not " +
                 "found with id: " + resourceId));
         UUID facilityID = admin.getFacility().getId();
-        if(facilityID == null){
+        if (facilityID == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
         }
         String facilityEmail = resource.getFacilityEmail();
         String facilityPhoneNumber = resource.getFacilityPhoneNumber();
-        Facility facility = facilityRepository.findFacilityByEmailAndPhoneNumber(facilityEmail , facilityPhoneNumber).
-                orElseThrow(()-> new DetailsNotFound("No facility found!!"));
-        if(facilityID != facility.getId()){
+        Facility facility = facilityRepository.findFacilityByEmailAndPhoneNumber(facilityEmail, facilityPhoneNumber).
+                orElseThrow(() -> new DetailsNotFound("No facility found!!"));
+        if (facilityID != facility.getId()) {
             throw new AccessDeniedException("Not authorized!!");
         }
 
@@ -170,4 +173,31 @@ public class ResourceServiceImpl  implements ResourceService{
         return res.getQuantity();
 
     }
+
+    @Override
+    public List<FacilityResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO) {
+        Double latitude = resourceRequestDTO.getLatitude();
+        Double longitude = resourceRequestDTO.getLongitude();
+
+        if (resourceRequestDTO.getResourceTypes() == null || resourceRequestDTO.getResourceTypes().isEmpty()) {
+            throw new IllegalArgument("Resource types cannot be null or empty");
+        }
+
+        List<Facility> facilities;
+        if (resourceRequestDTO.getResourceTypes().contains(ResourceType.BLOOD)) {
+            BloodComponent bloodComponent = resourceRequestDTO.getBloodComponent();
+            BloodGroup bloodGroup = resourceRequestDTO.getBloodGroup();
+            facilities = resourceRepository.findTop10NearestFacilitiesWithBloodResources(
+                    resourceRequestDTO.getResourceTypes(), longitude, latitude, bloodGroup, bloodComponent);
+        } else {
+            facilities = resourceRepository.findTop10NearestFacilitiesWithResources(
+                    resourceRequestDTO.getResourceTypes(), longitude, latitude );
+        }
+
+        return facilities.stream()
+                .map(facility -> modelMapper.map(facility, FacilityResponseDTO.class))
+                .toList();
+    }
+
 }
+

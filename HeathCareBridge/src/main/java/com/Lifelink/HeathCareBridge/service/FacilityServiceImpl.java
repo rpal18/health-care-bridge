@@ -9,6 +9,10 @@ import com.Lifelink.HeathCareBridge.repository.AdminRepository;
 import com.Lifelink.HeathCareBridge.repository.FacilityRepository;
 import com.Lifelink.HeathCareBridge.repository.RequestedFacilityRepository;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +37,10 @@ public class FacilityServiceImpl implements FacilityService{
     private ModelMapper modelMapper;
     @Autowired
     private RequestedFacilityRepository requestedFacilityRepository;
-
     @Autowired
     private AdminRepository adminRepository;
-
     private final Logger logger = LoggerFactory.getLogger(FacilityServiceImpl.class);
+    private final GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel() , 4326);
 
     @Override
     @Transactional
@@ -50,7 +53,6 @@ public class FacilityServiceImpl implements FacilityService{
         if(existingFacility != null){
                 throw new AlreadyExistsException("Facility with the same phone number or email already exists");
         }
-
         Facility facility = getFacilityFromRequestedFacility(requestedFacility);
         facility.setApprovedOn(LocalDateTime.now());
         Facility savedFacility = facilityRepository.save(facility);
@@ -67,7 +69,6 @@ public class FacilityServiceImpl implements FacilityService{
 
     @Override
     public String blockFacility(UUID facilityId) {
-
         Facility facility = facilityRepository.findById(facilityId).orElseThrow(() ->
                 new DetailsNotFound("Facility not found with id: " + facilityId));
         facility.setFacilityStatus(FacilityStatus.BLOCKED);
@@ -175,7 +176,7 @@ public class FacilityServiceImpl implements FacilityService{
         return modelMapper.map(facility, FacilityResponseDTO.class);
     }
 
-    private static Facility getFacilityFromRequestedFacility(RequestedFacility requestedFacility) {
+    private  Facility getFacilityFromRequestedFacility(RequestedFacility requestedFacility) {
         if(requestedFacility.getFacilityStatus() != FacilityStatus.PENDING){
             throw new IllegalArgumentException("Only pending facility requests can be approved.");
         }
@@ -188,13 +189,13 @@ public class FacilityServiceImpl implements FacilityService{
         facility.setIs24x7(requestedFacility.getIs24x7());
         facility.setPhoneNumber(requestedFacility.getPhoneNumber());
         facility.setEmail(requestedFacility.getEmail());
-        facility.setLatitude(requestedFacility.getLatitude());
-        facility.setLongitude(requestedFacility.getLongitude());
+        Point location = createPoint(requestedFacility.getLongitude(), requestedFacility.getLatitude());
+        facility.setLocation(location);
         facility.setFacilityStatus(FacilityStatus.ACTIVE);
         return facility;
     }
 
-    private static RequestedFacility getFacility(FacilityDTO facilityDTO) {
+    private  RequestedFacility getFacility(FacilityDTO facilityDTO) {
         RequestedFacility requestedFacility = new RequestedFacility();
         requestedFacility.setName(facilityDTO.getName());
         requestedFacility.setAddress(facilityDTO.getAddress());
@@ -208,5 +209,8 @@ public class FacilityServiceImpl implements FacilityService{
         requestedFacility.setLongitude(facilityDTO.getLongitude());
         requestedFacility.setFacilityStatus(FacilityStatus.PENDING);
         return requestedFacility;
+    }
+    private Point createPoint(Double longitude, Double latitude) {
+        return geometryFactory.createPoint(new Coordinate(longitude, latitude));
     }
 }

@@ -1,6 +1,7 @@
 package com.Lifelink.HeathCareBridge.service;
 
 import com.Lifelink.HeathCareBridge.model.Admin;
+import com.Lifelink.HeathCareBridge.model.Facility;
 import com.Lifelink.HeathCareBridge.model.Resource;
 import com.Lifelink.HeathCareBridge.payload.*;
 
@@ -17,6 +18,7 @@ public interface ResourceService {
 
     ResourceResponseDTO updateResourceQuantity(UUID resourceId, int quantity , Admin admin);
     int allocateResource(UUID resourceID , Admin adminm, int quantity);
+    List<FacilityResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO);
 
 
 }
