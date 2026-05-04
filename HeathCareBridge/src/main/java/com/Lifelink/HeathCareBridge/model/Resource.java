@@ -3,6 +3,7 @@ package com.Lifelink.HeathCareBridge.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.locationtech.jts.geom.Point;
 
 
 import java.time.LocalDateTime;
@@ -21,14 +22,12 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Resource type is required")
     private ResourceType resourceType;
-
     private int quantity;
 
     private boolean available;
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Facility type is required")
     private FacilityType facilityType;
-
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Facility role is required")
     private FacilityRole facilityRole;
@@ -40,9 +39,9 @@ public class Resource {
     private String facilityPhoneNumber;
     @NotBlank(message = " please add facility email")
     private String facilityEmail;
-
-    // constructors
-
+    @NotNull
+    @Column(name = "location", columnDefinition = "geography(Point , 4326)" , updatable = false)
+    private Point location;
 
 
     public Resource() {
@@ -50,7 +49,8 @@ public class Resource {
 
     public Resource(UUID id, String name, ResourceType resourceType,
                     int quantity, boolean available, FacilityType facilityType,
-                    String facilityName, LocalDateTime lastUpdated , String facilityPhoneNumber , String facilityEmail) {
+                    String facilityName, LocalDateTime lastUpdated , String
+                            facilityPhoneNumber , String facilityEmail , Point location) {
         this.id = id;
         this.name = name;
         this.resourceType = resourceType;
@@ -61,9 +61,8 @@ public class Resource {
         this.lastUpdated = lastUpdated;
         this.facilityEmail = facilityEmail;
         this.facilityPhoneNumber = facilityPhoneNumber;
+        this.location = location;
     }
-
-    // getters and setters
     public UUID getId() {
         return id;
     }
@@ -150,5 +149,12 @@ public class Resource {
 
     public void setFacilityEmail(String facilityEmail) {
         this.facilityEmail = facilityEmail;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+    public void setLocation(Point location) {
+        this.location = location;
     }
 }

@@ -75,6 +75,7 @@ public class ResourceServiceImpl implements ResourceService {
         resource.setFacilityRole(facility.getFacilityRole());
         resource.setFacilityEmail(facility.getEmail());
         resource.setFacilityPhoneNumber(facility.getPhoneNumber());
+        resource.setLocation(facility.getLocation());
         Resource savedResource = resourceRepository.save(resource);
         return modelMapper.map(savedResource, ResourceResponseDTO.class);
     }
@@ -123,6 +124,7 @@ public class ResourceServiceImpl implements ResourceService {
         bloodResource.setBloodGroup(bloodResourceDTO.getBloodGroup());
         bloodResource.setFacilityEmail(facility.getEmail());
         bloodResource.setFacilityPhoneNumber(facility.getPhoneNumber());
+        bloodResource.setLocation(facility.getLocation());
         Blood savedBloodResource = bloodRepository.save(bloodResource);
         return modelMapper.map(savedBloodResource, BloodResourceResponseDTO.class);
     }

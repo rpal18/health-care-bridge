@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,8 +29,11 @@ public class Blood extends Resource{
         this.bloodComponent = bloodComponent;
     }
 
-    public Blood(UUID id, String name, ResourceType resourceType, int quantity, boolean available, FacilityType facilityType, String facilityName, LocalDateTime lastUpdated, String facilityPhoneNumber, String facilityEmail, BloodGroup bloodGroup, BloodComponent bloodComponent) {
-        super(id, name, resourceType, quantity, available, facilityType, facilityName, lastUpdated, facilityPhoneNumber, facilityEmail);
+    public Blood(UUID id, String name, ResourceType resourceType, int quantity, boolean available, FacilityType
+            facilityType, String facilityName, LocalDateTime lastUpdated, String facilityPhoneNumber, String
+            facilityEmail, BloodGroup bloodGroup, BloodComponent bloodComponent , Point location) {
+        super(id, name, resourceType, quantity, available, facilityType, facilityName,
+                lastUpdated, facilityPhoneNumber, facilityEmail , location);
         this.bloodGroup = bloodGroup;
         this.bloodComponent = bloodComponent;
     }
