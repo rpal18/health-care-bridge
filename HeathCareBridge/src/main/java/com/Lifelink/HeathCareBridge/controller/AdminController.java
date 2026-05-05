@@ -24,7 +24,6 @@ public class AdminController {
     @Autowired
     private FacilityService facilityService;
 
-    //register as admin
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> registerAdmin(@Valid @RequestBody UserRequestDTO userRequestDTO){
         UserResponseDTO userResponseDTO = adminService.registerAdmin(userRequestDTO);

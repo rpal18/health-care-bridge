@@ -44,6 +44,4 @@ public class AdminServiceImpl implements AdminService{
          Admin savedAdmin = adminRepository.save(admin);
          return modelMapper.map(savedAdmin , UserResponseDTO.class);
     }
-
-
 }
