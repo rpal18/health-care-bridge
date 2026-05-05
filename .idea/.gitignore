@@ -1,3 +1,17 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+.idea/
+.env
+# Ignore the temp directory you created for Tomcat
+temp/
+**/temp/
+
+
+# Ignore any specific tomcat temp directories
+tomcat.*/
+**/tomcat.*/
+
+# General temporary files
+*.tmp

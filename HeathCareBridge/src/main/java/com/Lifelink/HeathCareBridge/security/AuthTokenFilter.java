@@ -25,16 +25,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger  = LoggerFactory.getLogger(AuthTokenFilter.class);
 
-
-    /*
-    --------------------------------------------------------------------------------------------------------------------
-
-  This method intercepts every incoming request.
-  It checks for a JWT token, validates it, and sets the user authentication
-  before the request reaches the controller.
-
-    --------------------------------------------------------------------------------------------------------------------
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -42,25 +32,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try {
 
             String token = parseJwt(request);
-            //need to validate the token first
+
             if(token!=null && jwtUtils.validateToken(token)){
                 String userName = jwtUtils.UserNameFromJwtToken(token);
                 UserDetails userDetail = userDetailsService.loadUserByUsername(userName);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetail , null , userDetail.getAuthorities());
-                /*
-                -------------------------------------------------------------------------------------------------------------
-                 usernamePasswordAuthenticationToken => Authentication object
-                 this below line is  for attaching request detail to authentication object . to do that I am making
-                 use of WebAuthenticationDetailsSource class and buildDetails method.
-                -------------------------------------------------------------------------------------------------------------
-                */
+
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-               /*
-               --------------------------------------------------------------------------------------------------------------
-                The below line is responsible for setting authentication object in Security context .
-               --------------------------------------------------------------------------------------------------------------
-                */
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
@@ -70,20 +49,24 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }catch(Exception e){
             logger.error("Cannot set Authentication  : {} " , e.getMessage());
         }
-
-        /*
-        --------------------------------------------------------------------------------------------------------------------
-        Continue the filter chain. Pass the request to the next filter (or the Controller).
-        without this line , despite  user being  verified  he will see the blank screen
-        because request will not be hand over to controller .
-        --------------------------------------------------------------------------------------------------------------------
-         */
         filterChain.doFilter(request , response);
     }
 
+//    private String parseJwt(HttpServletRequest request){
+//        String jwtToken = jwtUtils.getJwtFromCookies(request);
+//        logger.debug("AuthTokenFilter.java : {}" , jwtToken);
+//        return jwtToken;
+//    }
+
     private String parseJwt(HttpServletRequest request){
-        String jwtToken = jwtUtils.getJwtFromCookies(request);
-        logger.debug("AuthTokenFilter.java : {}" , jwtToken);
-        return jwtToken;
+        String jwtFromCookies = jwtUtils.getJwtFromCookies(request);
+        if(jwtFromCookies!=null){
+            return jwtFromCookies;
+        }
+        String jwtFromHeader = jwtUtils.getJwtFromHeader(request);
+        if(jwtFromHeader!=null){
+            return jwtFromHeader;
+        }
+        return null;
     }
 }

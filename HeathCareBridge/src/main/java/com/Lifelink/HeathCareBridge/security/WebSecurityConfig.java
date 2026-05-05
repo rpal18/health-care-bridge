@@ -52,8 +52,9 @@ public class WebSecurityConfig {
                                 requestMatchers("/api/public/admin/register").permitAll().
                                 requestMatchers("/api/facilities/request").permitAll().
                                 requestMatchers("/api/auth/**").permitAll().
-                                requestMatchers("/v3/api-doc/**").permitAll().
+                                requestMatchers("/v3/api-docs/**").permitAll().
                                 requestMatchers("/swagger-ui/**").permitAll().
+                                requestMatchers("/swagger-ui.html").permitAll().
                                 requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/error").permitAll().anyRequest().authenticated()
 
@@ -64,11 +65,4 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
-        return (web -> web.ignoring().requestMatchers("/v3/api-docs" ,
-                "/swagger-resources/**" , "/configuration-ui" , "/configuration/security" ,
-                "/swagger-ui.html" , "/webjars/**"
-        ));
-    }
 }

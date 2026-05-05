@@ -35,33 +35,16 @@ public class JwtUtils {
     private String jwtCookie;
     //adding logger
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-/*
-------------------------------------------------------------------------------------------------------------------------
-    //getting Jwt header from http request
-------------------------------------------------------------------------------------------------------------------------
-
-    public String getJwtFromRequest(HttpServletRequest request){
-        String bearerRequest = request.getHeader("Authorization");
-        logger.debug("Authorization Header: {} " , bearerRequest);
-        if(bearerRequest!=null && bearerRequest.startsWith("Bearer ")){
-            return bearerRequest.substring(7);
-        }
-        // now extracting token only as Authorization Header have "Bearer <> "
-        // here  , we just want <>.
-        return null;
-
-    }
-
- Note : commented because we are going to make use of cookie based authentication otherwise it will
-        intercept the request.
-
-------------------------------------------------------------------------------------------------------------------------
-     */
-
-    //getting jwt from cookie
     public String getJwtFromCookies(HttpServletRequest request){
         Cookie cookie = WebUtils.getCookie(request , jwtCookie);
         return cookie.getValue();
+    }
+    public String getJwtFromHeader(HttpServletRequest request){
+        String bearerToken = request.getHeader("Authorization");
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     //generating jwtCookies

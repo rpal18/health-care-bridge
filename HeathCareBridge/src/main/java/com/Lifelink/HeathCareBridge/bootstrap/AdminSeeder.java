@@ -24,7 +24,7 @@ public class AdminSeeder implements CommandLineRunner {
         String adminUserName = System.getenv("adminUsername");
         String adminEmail = System.getenv("adminEmail");
         String adminPassword = System.getenv("adminPassword");
-        String adminPhoneNumber = System.getenv("adminPhoneNumber");
+        String phoneNumber = System.getenv("phoneNumber");
         if(adminEmail == null  || adminPassword == null || adminUserName == null){
             throw new DetailsNotFound("Admin email or password  or user name not found in environment variables");
         }
@@ -36,7 +36,7 @@ public class AdminSeeder implements CommandLineRunner {
         superAdmin.setUserName(adminUserName);
         superAdmin.setEmail(adminEmail);
         superAdmin.setPassword(passwordEncoder.encode(adminPassword));
-        superAdmin.setPhoneNumber(adminPhoneNumber);
+        superAdmin.setPhoneNumber("+919876543210");
         superAdmin.setRoles(Set.of(Role.SYSTEM_ADMIN));
         userRepository.save(superAdmin);
 
