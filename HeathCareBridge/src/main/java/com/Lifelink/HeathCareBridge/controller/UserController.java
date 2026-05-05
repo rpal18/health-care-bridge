@@ -2,6 +2,7 @@ package com.Lifelink.HeathCareBridge.controller;
 
 import com.Lifelink.HeathCareBridge.AppConfig.AppConstant;
 import com.Lifelink.HeathCareBridge.payload.FacilityResponseDTO;
+import com.Lifelink.HeathCareBridge.payload.NearByResponseDTO;
 import com.Lifelink.HeathCareBridge.payload.ResourceRequestDTO;
 import com.Lifelink.HeathCareBridge.payload.UserResponseDTO;
 import com.Lifelink.HeathCareBridge.service.ResourceService;
@@ -30,8 +31,8 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
     @GetMapping("/nearby-help")
-    public ResponseEntity<List<FacilityResponseDTO>> getNearByHelp(@RequestBody @Valid ResourceRequestDTO resourceRequestDTO){
-        List<FacilityResponseDTO> response = resourceService.getFacilitiesWhereResourceIsAvailable(resourceRequestDTO);
+    public ResponseEntity<List<NearByResponseDTO>> getNearByHelp(@RequestBody @Valid ResourceRequestDTO resourceRequestDTO){
+        List<NearByResponseDTO> response = resourceService.getFacilitiesWhereResourceIsAvailable(resourceRequestDTO);
         return ResponseEntity.ok(response);
     }
 }

@@ -1,6 +1,7 @@
 package com.Lifelink.HeathCareBridge.repository;
 
 import com.Lifelink.HeathCareBridge.model.*;
+import com.Lifelink.HeathCareBridge.projection.FacilityLocationProjection;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,25 +18,35 @@ public interface ResourceRepository extends JpaRepository<Resource, UUID> {
     Resource findByNameAndFacilityNameAndFacilityTypeAndResourceType(
             String name, String facilityName, FacilityType type, ResourceType resourceType);
 
-    @Query(value = "SELECT DISTINCT r.facility_name FROM resource r " +
+    @Query(value = "SELECT r.facility_name AS facilityName, " +
+            "ST_Y(r.location::geometry) AS latitude, " +
+            "ST_X(r.location::geometry) AS longitude, " +
+            "ST_Distance(r.location, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)) AS distance " +
+            "FROM resource r " +
             "WHERE r.resource_type IN :resourcesRequired " +
             "AND r.available = true " +
-            "ORDER BY r.location <-> ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326) ASC " +
+            "GROUP BY r.facility_name, r.location " +
+            "ORDER BY distance ASC " +
             "LIMIT 10", nativeQuery = true)
-    List<Facility> findTop10NearestFacilitiesWithResources(@Param("resourcesRequired") List<ResourceType> resourcesRequired,
-                                                         @Param("longitude") Double longitude,
-                                                         @Param("latitude") Double latitude);
+    List<FacilityLocationProjection> findTop10NearestFacilityLocations(@Param("resourcesRequired") List<String> resourcesRequired,
+                                                                       @Param("longitude") Double longitude,
+                                                                       @Param("latitude") Double latitude);
 
-    @Query(value = "SELECT DISTINCT r.facility_name FROM blood r " +
+    @Query(value = "SELECT r.facility_name AS facilityName, " +
+            "ST_Y(r.location::geometry) AS latitude, " +
+            "ST_X(r.location::geometry) AS longitude, " +
+            "ST_Distance(r.location, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)) AS distance " +
+            "FROM resource r " +
             "WHERE r.resource_type IN :resourcesRequired " +
             "AND r.available = true " +
             "AND r.blood_group = :bloodGroup " +
             "AND r.blood_component = :bloodComponent " +
-            "ORDER BY r.location <-> ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326) ASC " +
+            "GROUP BY r.facility_name, r.location " +
+            "ORDER BY distance ASC " +
             "LIMIT 10", nativeQuery = true)
-    List<Facility> findTop10NearestFacilitiesWithBloodResources(@Param("resourcesRequired") List<ResourceType> resourcesRequired,
-                                                              @Param("longitude") Double longitude,
-                                                              @Param("latitude") Double latitude,
-                                                              @Param("bloodGroup") BloodGroup bloodGroup,
-                                                              @Param("bloodComponent") BloodComponent bloodComponent);
+    List<FacilityLocationProjection> findTop10NearestBloodFacilityLocations(@Param("resourcesRequired") List<String> resourcesRequired,
+                                                                            @Param("longitude") Double longitude,
+                                                                            @Param("latitude") Double latitude,
+                                                                            @Param("bloodGroup") String bloodGroup,
+                                                                            @Param("bloodComponent") String bloodComponent);
     }

@@ -18,7 +18,7 @@ public interface ResourceService {
 
     ResourceResponseDTO updateResourceQuantity(UUID resourceId, int quantity , Admin admin);
     int allocateResource(UUID resourceID , Admin adminm, int quantity);
-    List<FacilityResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO);
+    List<NearByResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO);
 
 
 }

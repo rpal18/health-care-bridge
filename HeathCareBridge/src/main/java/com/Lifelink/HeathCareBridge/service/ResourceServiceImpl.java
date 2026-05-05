@@ -4,6 +4,7 @@ import com.Lifelink.HeathCareBridge.exceptions.DetailsNotFound;
 import com.Lifelink.HeathCareBridge.exceptions.IllegalArgument;
 import com.Lifelink.HeathCareBridge.model.*;
 import com.Lifelink.HeathCareBridge.payload.*;
+import com.Lifelink.HeathCareBridge.projection.FacilityLocationProjection;
 import com.Lifelink.HeathCareBridge.repository.BloodRepository;
 import com.Lifelink.HeathCareBridge.repository.FacilityRepository;
 import com.Lifelink.HeathCareBridge.repository.ResourceRepository;
@@ -177,7 +178,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<FacilityResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO) {
+    public List<NearByResponseDTO> getFacilitiesWhereResourceIsAvailable(ResourceRequestDTO resourceRequestDTO) {
         Double latitude = resourceRequestDTO.getLatitude();
         Double longitude = resourceRequestDTO.getLongitude();
 
@@ -185,20 +186,30 @@ public class ResourceServiceImpl implements ResourceService {
             throw new IllegalArgument("Resource types cannot be null or empty");
         }
 
-        List<Facility> facilities;
+        List<FacilityLocationProjection> facilitiesProjection;
         if (resourceRequestDTO.getResourceTypes().contains(ResourceType.BLOOD)) {
-            BloodComponent bloodComponent = resourceRequestDTO.getBloodComponent();
-            BloodGroup bloodGroup = resourceRequestDTO.getBloodGroup();
-            facilities = resourceRepository.findTop10NearestFacilitiesWithBloodResources(
-                    resourceRequestDTO.getResourceTypes(), longitude, latitude, bloodGroup, bloodComponent);
+            List<String> resourceTypeNames = resourceRequestDTO.getResourceTypes().stream()
+                    .map(Enum::name)
+                    .toList();
+            String bloodComponent = resourceRequestDTO.getBloodComponent().name();
+            String bloodGroup = resourceRequestDTO.getBloodGroup().name();
+            facilitiesProjection  = resourceRepository.findTop10NearestBloodFacilityLocations(
+                    resourceTypeNames, longitude, latitude, bloodGroup, bloodComponent);
         } else {
-            facilities = resourceRepository.findTop10NearestFacilitiesWithResources(
-                    resourceRequestDTO.getResourceTypes(), longitude, latitude );
+            List<String> resourceTypeNames = resourceRequestDTO.getResourceTypes().stream()
+                    .map(Enum::name)
+                    .toList();
+            facilitiesProjection = resourceRepository.findTop10NearestFacilityLocations(
+                    resourceTypeNames,longitude ,latitude);
         }
 
-        return facilities.stream()
-                .map(facility -> modelMapper.map(facility, FacilityResponseDTO.class))
-                .toList();
+        List<NearByResponseDTO> responseList = facilitiesProjection.stream().map(proj -> {
+            Double lat = proj.getLatitude() !=null ? proj.getLatitude(): null;
+            Double lon = proj.getLongitude() !=null ? proj.getLongitude(): null;
+            LocationDTO locationObj = new LocationDTO(lat, lon);
+            return new NearByResponseDTO(proj.getFacilityName(), locationObj, proj.getDistance()*0.001);
+        }).toList();
+        return responseList;
     }
 
 }
