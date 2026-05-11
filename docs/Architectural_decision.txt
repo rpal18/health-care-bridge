@@ -1,0 +1,48 @@
+----------------------------------------------------------------------------------------------------------------------------------
+Architectural decision 1 : Single Table Inheritance for Resources =>
+----------------------------------------------------------------------------------------------------------------------------------
+In our application , we have multiple type of resources and out bussiness goal was to get nearest possible place ( organisation)
+where required resources are available . Since our application is a emergency response system , if we would make use of
+traditional ways ( making use of join ) that would have made our application slow and inefficient . So we decided to make use of
+Single table inheritance .
+
+pros :
+i) Faster queries as we are not making use of join and all the data is in one table
+ii) Easier to maintain as we have only one table to deal with
+iii) Easier to extend as we can add new resource types without having to change the database schema
+cons :
+i) Data redundancy as we have to store the same data for each resource type
+ii) Potential for data inconsistency as we have to ensure that the data is consistent across all resource types
+iii) Some columns may be null for some resource types which can lead to confusion and potential bugs
+
+==================================================================================================================================
+Architectural decision 2 : PostGIS vs. Haversine Formula =>
+==================================================================================================================================
+Calculating distance in Java using the Haversine formula is an O(N) operation; it requires fetching every single facility record
+ into application memory to perform the math. This is not scalable. We utilized PostGIS because it supports GIST
+ (Generalized Search Tree) Spatial Indexing. This allows the database to perform a 'bounding box' search first, narrowing
+ down candidates in O(log N) time. By using the geography type, we ensure high accuracy on the earth's spheroid without
+ the overhead of manual coordinate conversion in the backend.
+
+===================================================================================================================================
+Architectural decision 3 : Using llama 4 scout model ( meta ) hosted on groq =>
+===================================================================================================================================
+
+We chose to use the llama 4 scout model hosted on groq for our application because it provides a powerful and efficient way to process
+natural language queries. The llama 4 scout model is specifically designed for tasks like ours, where we need to understand and respond
+to user requests in real-time. By hosting it on groq, we can take advantage of their high-performance infrastructure, which allows us
+to handle a large number of requests simultaneously without any latency issues. Additionally, the llama 4 scout model has been trained
+on a wide range of data, making it well-suited for understanding the diverse queries that users may have in an emergency response system.
+Overall, using the llama 4 scout model hosted on groq allows us to provide a fast and accurate response to user queries, enhancing the
+overall user experience of our application.
+
+===================================================================================================================================
+Architectural decision 4  : Telegram as the Frontend =>
+===================================================================================================================================
+
+for a emergency response system  , we must not require a user to download our application just to get  help in situation of emergency .
+since Telegram is widely used application and we allow any request for help to be made through Telegram , we can reach out to more
+people and help them in their time of need . Moreover , Telegram provides a bot API that allows us to easily integrate our application
+with Telegram and provide a seamless user experience . Additionally , Telegram is a secure and reliable platform that can handle a
+large number of users and requests without any issues . Overall , using Telegram as the frontend for our application allows us to reach
+more people and provide a better user experience while also ensuring the security and reliability of our application .

@@ -1,0 +1,11 @@
+The Problem : "I faced a challenge with JPA Spatial Mapping. I tried to pass a com.vividsolutions.jts.geom.Point object
+directly into a @Query, but the underlying JDBC driver struggled to resolve the complex geometry type into the native
+PostGIS format. It kept throwing type-mismatch errors or failing to serialize the binary data."
+------------------------------------------------------------------------------------------------------------------------
+
+The Solution : To ensure the system remained robust and didn't rely on complex Hibernate Spatial Dialects that can be
+brittle, I made a strategic decision to decouple the point logic. I modified the custom SQL to accept two Double
+parameters (longitude and latitude) and used the native PostGIS function ST_SetSRID(ST_MakePoint(?, ?), 4326) within the
+ query. This fixed the resolution issue and actually made the API more flexible, as it allowed me to pass coordinates
+ directly from the Telegram GPS metadata without extra object conversion overhead."
+
