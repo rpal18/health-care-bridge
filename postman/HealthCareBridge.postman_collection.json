@@ -1,0 +1,1246 @@
+{
+  "info": {
+    "_postman_id": "f1701580-dc15-45e4-a35b-d54718f8821c",
+    "name": "HealthCareBridge",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49895824",
+    "_collection_link": "https://go.postman.co/collection/49895824-f1701580-dc15-45e4-a35b-d54718f8821c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Resource endpoints",
+      "item": [
+        {
+          "name": "add resource",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/add",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update quantity",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/update/ce930a2a-df10-4071-8b5d-852a57b5d230/quantity/12",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "update",
+                "ce930a2a-df10-4071-8b5d-852a57b5d230",
+                "quantity",
+                "12"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "allocate resources",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/update/ce930a2a-df10-4071-8b5d-852a57b5d230/quantity/12",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "update",
+                "ce930a2a-df10-4071-8b5d-852a57b5d230",
+                "quantity",
+                "12"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add blood resource",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Blood Bag\",\r\n  \"resourceType\": \"BLOOD\",\r\n  \"quantity\": 10,\r\n  \"bloodGroup\": \"A_POSITIVE\",\r\n  \"bloodComponent\": \"RED_BLOOD_CELLS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/add/blood-resource",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "add",
+                "blood-resource"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all resources",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Facility",
+      "item": [
+        {
+          "name": "get all facilities",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/add",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get All Admins",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/add",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve facility",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/approve/be9139ce-f2f9-48d5-9a75-ef3703851a06",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "approve",
+                "be9139ce-f2f9-48d5-9a75-ef3703851a06"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assign admin to facility",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/admin/assign-admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "admin",
+                "assign-admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete facility",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/0434a692-2c7e-42c4-aac4-bb14a0fe055e?message=\"test purpose\"",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "0434a692-2c7e-42c4-aac4-bb14a0fe055e"
+              ],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "\"test purpose\"",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "restore facility",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/9faea1b3-8ea6-4705-8472-9aef6b14cd76",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "9faea1b3-8ea6-4705-8472-9aef6b14cd76"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "login super admin",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/auth/signin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "signin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Visualization Script",
+                  "// Visualization Script",
+                  "",
+                  "const template = `",
+                  "<html>",
+                  "<head>",
+                  "  <style>",
+                  "    body {",
+                  "      font-family: 'Segoe UI', Arial, sans-serif;",
+                  "      background: #f4f6f9;",
+                  "      margin: 0;",
+                  "      padding: 20px;",
+                  "    }",
+                  "    h2 {",
+                  "      color: #2c3e50;",
+                  "      margin-bottom: 16px;",
+                  "      font-size: 18px;",
+                  "      border-bottom: 2px solid #3498db;",
+                  "      padding-bottom: 8px;",
+                  "    }",
+                  "    table {",
+                  "      width: 100%;",
+                  "      border-collapse: collapse;",
+                  "      background: #ffffff;",
+                  "      border-radius: 8px;",
+                  "      overflow: hidden;",
+                  "      box-shadow: 0 2px 8px rgba(0,0,0,0.08);",
+                  "    }",
+                  "    th {",
+                  "      background-color: #3498db;",
+                  "      color: #ffffff;",
+                  "      text-align: left;",
+                  "      padding: 10px 16px;",
+                  "      font-size: 13px;",
+                  "      text-transform: uppercase;",
+                  "      letter-spacing: 0.5px;",
+                  "    }",
+                  "    td {",
+                  "      padding: 10px 16px;",
+                  "      font-size: 13px;",
+                  "      color: #34495e;",
+                  "      border-bottom: 1px solid #ecf0f1;",
+                  "      vertical-align: top;",
+                  "      word-break: break-word;",
+                  "    }",
+                  "    tr:nth-child(even) td {",
+                  "      background-color: #f8fafc;",
+                  "    }",
+                  "    tr:last-child td {",
+                  "      border-bottom: none;",
+                  "    }",
+                  "    .key-cell {",
+                  "      font-weight: 600;",
+                  "      color: #2c3e50;",
+                  "      width: 30%;",
+                  "      white-space: nowrap;",
+                  "    }",
+                  "    .sub-table {",
+                  "      width: 100%;",
+                  "      border-collapse: collapse;",
+                  "      margin-top: 4px;",
+                  "    }",
+                  "    .sub-table td {",
+                  "      padding: 4px 8px;",
+                  "      font-size: 12px;",
+                  "      border-bottom: 1px solid #ecf0f1;",
+                  "      background: transparent;",
+                  "    }",
+                  "    .sub-table td:first-child {",
+                  "      font-weight: 600;",
+                  "      color: #7f8c8d;",
+                  "      width: 40%;",
+                  "    }",
+                  "    .badge {",
+                  "      display: inline-block;",
+                  "      background: #eaf4fb;",
+                  "      color: #2980b9;",
+                  "      border-radius: 4px;",
+                  "      padding: 2px 8px;",
+                  "      font-size: 12px;",
+                  "    }",
+                  "    .no-data {",
+                  "      color: #aaa;",
+                  "      font-style: italic;",
+                  "    }",
+                  "  </style>",
+                  "</head>",
+                  "<body>",
+                  "  <h2>Login as Admin — Response</h2>",
+                  "  <table>",
+                  "    <thead>",
+                  "      <tr>",
+                  "        <th>Field</th>",
+                  "        <th>Value</th>",
+                  "      </tr>",
+                  "    </thead>",
+                  "    <tbody>",
+                  "      {{#each rows}}",
+                  "      <tr>",
+                  "        <td class=\"key-cell\">{{key}}</td>",
+                  "        <td>",
+                  "          {{#if isObject}}",
+                  "            <table class=\"sub-table\">",
+                  "              {{#each subRows}}",
+                  "              <tr>",
+                  "                <td>{{subKey}}</td>",
+                  "                <td>{{subVal}}</td>",
+                  "              </tr>",
+                  "              {{/each}}",
+                  "            </table>",
+                  "          {{else}}",
+                  "            <span class=\"badge\">{{value}}</span>",
+                  "          {{/if}}",
+                  "        </td>",
+                  "      </tr>",
+                  "      {{/each}}",
+                  "    </tbody>",
+                  "  </table>",
+                  "</body>",
+                  "</html>",
+                  "`;",
+                  "",
+                  "function formatValue(val) {",
+                  "  if (val === null || val === undefined) return 'N/A';",
+                  "  if (typeof val === 'boolean') return val ? 'true' : 'false';",
+                  "  return String(val);",
+                  "}",
+                  "",
+                  "function createPayload() {",
+                  "  var data = pm.response.json();",
+                  "  var rows = [];",
+                  "",
+                  "  var skipKeys = [];",
+                  "",
+                  "  Object.keys(data).forEach(function(key) {",
+                  "    var val = data[key];",
+                  "",
+                  "    // Skip null values",
+                  "    if (val === null || val === undefined) return;",
+                  "",
+                  "    // Skip empty arrays",
+                  "    if (Array.isArray(val) && val.length === 0) return;",
+                  "",
+                  "    // Handle nested objects (non-array)",
+                  "    if (typeof val === 'object' && !Array.isArray(val)) {",
+                  "      var subRows = [];",
+                  "      Object.keys(val).forEach(function(subKey) {",
+                  "        var subVal = val[subKey];",
+                  "        if (subVal !== null && subVal !== undefined) {",
+                  "          subRows.push({ subKey: subKey, subVal: formatValue(subVal) });",
+                  "        }",
+                  "      });",
+                  "      if (subRows.length > 0) {",
+                  "        rows.push({ key: key, isObject: true, subRows: subRows });",
+                  "      }",
+                  "      return;",
+                  "    }",
+                  "",
+                  "    // Handle arrays with values",
+                  "    if (Array.isArray(val)) {",
+                  "      rows.push({ key: key, isObject: false, value: val.join(', ') });",
+                  "      return;",
+                  "    }",
+                  "",
+                  "    rows.push({ key: key, isObject: false, value: formatValue(val) });",
+                  "  });",
+                  "",
+                  "  return { rows: rows };",
+                  "}",
+                  "",
+                  "pm.visualizer.set(template, createPayload());",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"userName\":\"John Doe\",\r\n \"password\":\"securePassword123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/auth/signin/admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "signin",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "log out",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/auth/signout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "signout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "get org admin facility just after login",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/public/admin/my-facility",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "public",
+                "admin",
+                "my-facility"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register as admin",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"City Hospital\",\r\n  \"address\": \"123 Main Street, Springfield\",\r\n  \"type\": \"HOSPITAL\",\r\n  \"facilityRole\": \"PRIMARY_CARE\",\r\n  \"roles\": [\"PRIMARY_CARE\", \"RESOURCE_PROVIDER\"],\r\n  \"directPatientCare\": true,\r\n  \"is24x7\": true,\r\n  \"phoneNumber\": \"+1234567890\",\r\n  \"email\": \"contact@cityhospital.com\",\r\n  \"latitude\": 40.7128,\r\n  \"longitude\": -74.0060\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/admin/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "admin",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "get all users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/users/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "users",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "register as patient",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"securePassword123\",\r\n  \"phoneNumber\": \"+919876543210\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/public/patients/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "public",
+                "patients",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Requested facility",
+      "item": [
+        {
+          "name": "get all requested facilities",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/requestedFacility/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "requestedFacility",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "request facility",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"City Hospital\",\r\n  \"address\": \"123 Main Street, Springfield\",\r\n  \"type\": \"HOSPITAL\",\r\n  \"facilityRole\": \"PRIMARY_CARE\",\r\n  \"roles\": [\"PRIMARY_CARE\", \"RESOURCE_PROVIDER\"],\r\n  \"directPatientCare\": true,\r\n  \"is24x7\": true,\r\n  \"phoneNumber\": \"+1234567890\",\r\n  \"email\": \"contact@cityhospital.com\",\r\n  \"latitude\": 40.7128,\r\n  \"longitude\": -74.0060\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/facilities/request",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "facilities",
+                "request"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ai controller",
+      "item": [
+        {
+          "name": "get nearby help",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"resourceType\": \"OXYGEN\",\r\n  \"name\": \"Oxygen Cylinder\",\r\n  \"quantity\": 10,\r\n  \"facilityType\": \"HOSPITAL\",\r\n  \"facilityName\": \"City Hospital\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/resources/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "resources",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get nearby help in emergency",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "latitude",
+                  "value": "25.897305",
+                  "type": "text",
+                  "uuid": "ded79760-f3d2-461b-b2d9-91783b460f04"
+                },
+                {
+                  "key": "longitude",
+                  "value": "81.945297",
+                  "type": "text",
+                  "uuid": "baf4b47b-92ab-49b8-98f4-2ddf35d90a3c"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "551113c1-3c5b-45ad-b15a-d154babca431",
+                  "src": "/C:/Users/palro/OneDrive/Pictures/Screenshots 1/Screenshot 2026-05-05 125238.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/emergency/find-help",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "emergency",
+                "find-help"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Donor",
+      "item": [
+        {
+          "name": "register as donor",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "94ecb52a-2bfc-4275-b52e-e5f236e16349",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "user",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"City Hospital\",\r\n  \"address\": \"123 Main Street, Springfield\",\r\n  \"type\": \"HOSPITAL\",\r\n  \"facilityRole\": \"PRIMARY_CARE\",\r\n  \"roles\": [\"PRIMARY_CARE\", \"RESOURCE_PROVIDER\"],\r\n  \"directPatientCare\": true,\r\n  \"is24x7\": true,\r\n  \"phoneNumber\": \"+1234567890\",\r\n  \"email\": \"contact@cityhospital.com\",\r\n  \"latitude\": 40.7128,\r\n  \"longitude\": -74.0060\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/admin/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "admin",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
