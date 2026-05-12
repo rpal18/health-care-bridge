@@ -56,35 +56,17 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        /*
-        step by step flow :
-        1) we extract username and password from loginRequest
-        2) create a Authentication type object , that is unauthenticated initially
-        3) after that we authenticate the Unauthenticated object ( by making use of AuthenticationManager )
-        4) After that , we save this authenticated object into spring context so that we do not need for authentication
-        with each request .
-         */
-
-        System.out.println("1. Login Hit!");
-        System.out.println("2. Receiving Username: " + loginRequest.getUserName());
-        System.out.println("3. Receiving Password: " + loginRequest.getPassword());
 
         try {
             Authentication unauthenticatedObject = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()
             );
 
             Authentication authenticatedObject = authenticationManager.authenticate(unauthenticatedObject);
-            logger.info("Authentication successful for user: {}", loginRequest.getUserName());
-            logger.info("Authenticated Object: {}", authenticatedObject);
             SecurityContextHolder.getContext().setAuthentication(authenticatedObject);
-            /*
-            Now we need to generate Jwt authentication token , as we need to send this with every request
-            that will be validated against authenticated object saved security context .
-             */
+
 
             UserDetailsImpl userDetails = (UserDetailsImpl) authenticatedObject.getPrincipal();
 
-            //String jwtToken = jwtUtils.generateTokenFromUserName(userDetails);
             ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
             List<String> roles = authenticatedObject.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();

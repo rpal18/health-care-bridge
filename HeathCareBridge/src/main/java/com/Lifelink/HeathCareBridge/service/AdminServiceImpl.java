@@ -1,5 +1,6 @@
 package com.Lifelink.HeathCareBridge.service;
 
+import com.Lifelink.HeathCareBridge.exceptions.AlreadyExistsException;
 import com.Lifelink.HeathCareBridge.exceptions.DetailsNotFound;
 import com.Lifelink.HeathCareBridge.model.Admin;
 import com.Lifelink.HeathCareBridge.model.Role;
@@ -33,7 +34,7 @@ public class AdminServiceImpl implements AdminService{
         String email = userRequestDTO.getEmail();
         Admin existingAdmin = adminRepository.findAdminByPhoneNumberOrEmail(phoneNumber , email);
         if(existingAdmin != null){
-            throw new DetailsNotFound("Admin with the same phone number or email already exists");
+            throw new AlreadyExistsException("Admin with the same phone number or email already exists");
         }
          Admin admin = new Admin();
          admin.setUserName(userRequestDTO.getName());

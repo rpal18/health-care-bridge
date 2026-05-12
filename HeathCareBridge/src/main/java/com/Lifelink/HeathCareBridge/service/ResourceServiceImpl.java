@@ -53,11 +53,10 @@ public class ResourceServiceImpl implements ResourceService {
 
         Resource existingResource = resourceRepository.findByNameAndFacilityNameAndFacilityTypeAndResourceType(
                 name, facility.getName(), facility.getType(), resourceType);
-
+        if (quantity < 0) {
+            throw new IllegalArgument("Quantity to add cannot be negative");
+        }
         if (existingResource != null) {
-            if (quantity < 0) {
-                throw new IllegalArgument("Quantity to add cannot be negative");
-            }
             existingResource.setQuantity(existingResource.getQuantity() + quantity);
             existingResource.setAvailable(existingResource.getQuantity() > 0);
             existingResource.setLastUpdated(LocalDateTime.now());
@@ -82,11 +81,18 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> getAllResource() {
+    public List<ResourceResponseDTO> getAllResource() {
         List<Resource> resources = resourceRepository.findAll();
         List<ResourceResponseDTO> response = resources.stream().
-                map(element -> modelMapper.map(element, ResourceResponseDTO.class)).toList();
-        return resources;
+                map(element -> {
+                    ResourceResponseDTO dto = modelMapper.map(element, ResourceResponseDTO.class);
+                    if (element.getLocation() != null) {
+                        dto.setLatitude(element.getLocation().getY());
+                        dto.setLongitude(element.getLocation().getX());
+                    }
+                    return dto;
+                }).toList();
+        return response;
     }
 
     @Override
@@ -101,11 +107,10 @@ public class ResourceServiceImpl implements ResourceService {
                         bloodResourceDTO.getName(), facility.getName(), facility.getType(),
                         ResourceType.BLOOD, bloodResourceDTO.getBloodComponent());
         int quantity = bloodResourceDTO.getQuantity();
+        if (quantity < 0) {
+            throw new IllegalArgument("Quantity to add cannot be negative");
+        }
         if (existingResource != null) {
-            if (quantity < 0) {
-                throw new IllegalArgument("Quantity to add cannot be negative");
-            }
-
             existingResource.setQuantity(existingResource.getQuantity() + quantity);
             existingResource.setAvailable(existingResource.getQuantity() > 0);
             existingResource.setLastUpdated(LocalDateTime.now());
@@ -138,6 +143,9 @@ public class ResourceServiceImpl implements ResourceService {
         Facility facility = admin.getFacility();
         if (facility == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
+        }
+        if (quantity < 0) {
+            throw new IllegalArgument("Quantity to add cannot be negative");
         }
         resource.setQuantity(resource.getQuantity() + quantity);
         resource.setAvailable(resource.getQuantity() > 0);

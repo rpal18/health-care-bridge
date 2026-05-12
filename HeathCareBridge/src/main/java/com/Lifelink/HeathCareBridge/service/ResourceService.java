@@ -12,7 +12,7 @@ public interface ResourceService {
 
     ResourceResponseDTO addResource(ResourceDTO resourceDTO , Admin admin);
 
-    List<Resource> getAllResource();
+    List<ResourceResponseDTO> getAllResource();
 
     BloodResourceResponseDTO addBloodResource(BloodResourceDTO bloodResourceDTO , Admin admin);
 

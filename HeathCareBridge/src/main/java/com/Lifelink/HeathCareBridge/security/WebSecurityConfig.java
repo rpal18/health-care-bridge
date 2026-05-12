@@ -48,8 +48,10 @@ public class WebSecurityConfig {
                 authorizeHttpRequests(
                         req -> req.requestMatchers("/api/public/admin/my-facility").hasAuthority("ORG_ADMIN").
                                 requestMatchers("/api/facilities/admin/**").hasAuthority("SYSTEM_ADMIN").
+                                requestMatchers("/api/resources/all").hasAuthority("SYSTEM_ADMIN").
                                 requestMatchers("/api/resources/**").hasAuthority("ORG_ADMIN").
                                 requestMatchers("/api/public/admin/register").permitAll().
+                                requestMatchers("/api/public/patients/register").permitAll().
                                 requestMatchers("/api/facilities/request").permitAll().
                                 requestMatchers("/api/auth/**").permitAll().
                                 requestMatchers("/v3/api-docs/**").permitAll().

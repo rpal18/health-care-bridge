@@ -80,8 +80,8 @@ public class ResourceController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<Resource>> getAllResources() {
-        List<Resource> ans = resourceService.getAllResource();
+    public ResponseEntity<List<ResourceResponseDTO>> getAllResources() {
+        List<ResourceResponseDTO> ans = resourceService.getAllResource();
         return ResponseEntity.ok(ans);
     }
 

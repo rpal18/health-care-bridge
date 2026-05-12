@@ -66,91 +66,69 @@ public class Resource {
     public UUID getId() {
         return id;
     }
-
     public void setId(UUID id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public ResourceType getResourceType() {
         return resourceType;
     }
-
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
     }
-
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public boolean isAvailable() {
         return available;
     }
-
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
     public FacilityType getFacilityType() {
         return facilityType;
     }
-
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
     }
-
     public String getFacilityName() {
         return facilityName;
     }
-
     public void setFacilityName(String facilityName) {
         this.facilityName = facilityName;
     }
-
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
-
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
-
     public FacilityRole getFacilityRole() {
         return facilityRole;
     }
-
     public void setFacilityRole(FacilityRole facilityRole) {
         this.facilityRole = facilityRole;
     }
-
     public String getFacilityPhoneNumber() {
         return facilityPhoneNumber;
     }
-
     public void setFacilityPhoneNumber(String facilityPhoneNumber) {
         this.facilityPhoneNumber = facilityPhoneNumber;
     }
-
     public String getFacilityEmail() {
         return facilityEmail;
     }
-
     public void setFacilityEmail(String facilityEmail) {
         this.facilityEmail = facilityEmail;
     }
-
     public Point getLocation() {
         return location;
     }

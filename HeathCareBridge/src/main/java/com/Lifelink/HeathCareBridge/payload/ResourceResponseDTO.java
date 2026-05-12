@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,10 +25,12 @@ public class ResourceResponseDTO {
     private LocalDateTime lastUpdated;
 
     private FacilityRole facilityRole;
+    private Double latitude;
+    private Double longitude;
 
     public ResourceResponseDTO(UUID id, String name, ResourceType resourceType,
                                int quantity, Facility facility, boolean available
-    , LocalDateTime lastUpdated , FacilityRole facilityRole) {
+    , LocalDateTime lastUpdated , FacilityRole facilityRole , Double latitude , Double longitude) {
         this.id = id;
         this.name = name;
         this.resourceType = resourceType;
@@ -36,6 +39,8 @@ public class ResourceResponseDTO {
         this.available = available;
         this.lastUpdated = lastUpdated;
         this.facilityRole = facilityRole;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public ResourceResponseDTO() {
@@ -103,5 +108,21 @@ public class ResourceResponseDTO {
 
     public void setFacilityRole(FacilityRole facilityRole) {
         this.facilityRole = facilityRole;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
