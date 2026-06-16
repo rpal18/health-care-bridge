@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   deploy:
-    timeout-minutes: 10
+    timeout-minutes: 40
     runs-on: ubuntu-latest
     steps:
      - name: sshing on ec2
@@ -11,6 +11,7 @@ jobs:
        with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.HOST_USER }}
+          command_timeout: 30m
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/health-care-bridge
