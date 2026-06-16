@@ -43,7 +43,7 @@ jobs:
             adminEmail: dummy@gmail.com
             adminPassword: dummyPassword
             adminUsername: dummyUsername
-            phoneNumber: +919089769000
+            phoneNumber: 9876543210
             TELEGRAM_BOT_TOKEN: dummyToken
             BASE_AI_URL: http://localhost:9999
             AI_API_KEY: dummyKey
