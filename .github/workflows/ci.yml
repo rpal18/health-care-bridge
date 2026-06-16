@@ -11,6 +11,20 @@ jobs:
       defaults:
         run:
           working-directory: ./HeathCareBridge
+      services:
+        postgres:
+          image: postgis/postgis:17-3.5
+          ports:
+            - 5432:5432
+          env:
+            POSTGRES_USER: testUser
+            POSTGRES_PASSWORD: testPassword
+            POSTGRES_DB: testDB
+          options:
+           --health-cmd "pg_isready"
+           --health-interval 10s
+           --health-timeout 5s
+           --health-retries 5
       steps:
         - name: checkout the code
           uses: actions/checkout@v6
@@ -22,3 +36,7 @@ jobs:
               cache: 'maven'
         - name: build with maven
           run: mvn clean verify
+          env:
+            DB_URL: jdbc:postgresql://localhost:5432/testDB
+            DB_USERNAME: testUser
+            DB_PASSWORD: testPassword
