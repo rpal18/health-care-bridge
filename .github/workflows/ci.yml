@@ -40,3 +40,14 @@ jobs:
             DB_URL: jdbc:postgresql://localhost:5432/testDB
             DB_USERNAME: testUser
             DB_PASSWORD: testPassword
+            adminEmail: dummy@gmail.com
+            adminPassword: dummyPassword
+            adminUsername: dummyUsername
+            phoneNumber: +919089769000
+            TELEGRAM_BOT_TOKEN: dummyToken
+            BASE_AI_URL: http://localhost:9999
+            AI_API_KEY: dummyKey
+            COOKIE: dummyCookie
+            JWT_SECRET: dummySecret
+            AI_MODEL: dummyModel
+
