@@ -9,3 +9,39 @@ parameters (longitude and latitude) and used the native PostGIS function ST_SetS
  query. This fixed the resolution issue and actually made the API more flexible, as it allowed me to pass coordinates
  directly from the Telegram GPS metadata without extra object conversion overhead."
 
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+My Spring Boot CI Pipeline Kept Failing — Here's What I Learned
+
+Recently I was setting up a CI/CD pipeline for my Spring Boot application , It was too frustating btw  whenever I fixed one issue another comes in. I wrote two workflow files — a CI pipeline responsible for build and test, and a CD pipeline responsible for deploying to AWS EC2.
+
+this is my initial ci workflow file :
+
+
+But the build kept failing and I was getting this error.
+
+Option 1 — Install Postgres directly on the VM:
+ I could do this easily if it was only about standard Postgres. But I have used the PostGIS extension for geospatial queries, which means I would have to create and configure the extension manually — time consuming and a lot of shell scripting.
+Option 2 — Use a PostGIS Docker image as a service container in the CI workflow:
+ GitHub Actions supports services: — which spins up a real Docker container on the same VM alongside your job. The postgis/postgis image comes pre-configured with PostGIS, zero manual setup, and it's the exact same image I use in production.
+I chose Option 2.
+
+Why localhost in the DB URL?
+ The build runs directly on the GitHub Actions VM. The PostGIS service container runs via Docker on that same VM, with port 5432 mapped to the VM's localhost. So jdbc:postgresql://localhost:5432/testdb correctly reaches the container .
+
+One important thing I learned here: the DB wasn't needed for the test logic it is needed because @SpringBootTest needs application context to load at first during start up .
+
+New issue — env variables not resolving during build:
+
+My .env file is in .gitignore (as it should be), so the GitHub Actions runner had no access to it.
+for this I configured dummy values in ci workflow ( i was mocking the tests using mockito).
+(attach updated ci.yml with env block)
+-------------------------------------------------------------------------------------
+Another issue — Telegram bot failing at the time when application context was starting up
+My application integrates a Telegram bot. During @SpringBootTest context initialization, the TelegramConfig bean tries to actively connect to api.telegram.org to clear the webhook. In CI this connection timed out and crashed the entire context — even though no test was actually testing Telegram functionality.
+The fix — annotate TelegramConfig with @Profile("!test") which tells Spring to skip creating that bean entirely when running with the test profile. Then activate the test profile in CI by passing -Dspring.profiles.active=test to the Maven command.
+
+I have attached the related screenshots of from failure to fix .
+
+and do let me know If you also have faced the similar issue .
