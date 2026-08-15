@@ -2,6 +2,7 @@ package com.Lifelink.HeathCareBridge.AppConfig;
 
 import com.Lifelink.HeathCareBridge.bot.EmergencyTelegramBot;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,6 +12,11 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Configuration
 @Profile("!test")
+@ConditionalOnProperty(
+        name="telegram.bot.enabled",
+        havingValue = "true",
+        matchIfMissing = false
+)
 public class TelegramConfig {
     @Bean
     @ConditionalOnBean(EmergencyTelegramBot.class)

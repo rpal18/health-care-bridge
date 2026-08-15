@@ -6,6 +6,7 @@ import com.Lifelink.HeathCareBridge.projection.FacilityLocationProjection;
 import com.Lifelink.HeathCareBridge.repository.ResourceRepository;
 import com.Lifelink.HeathCareBridge.service.AiService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Profile("!test")
+@ConditionalOnProperty(
+        name="telegram.bot.enabled",
+        havingValue = "true",
+        matchIfMissing = false
+)
 public class EmergencyTelegramBot extends TelegramLongPollingBot {
 
     @Value("${telegram.bot.username}")
