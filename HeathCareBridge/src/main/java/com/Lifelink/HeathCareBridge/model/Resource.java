@@ -25,43 +25,26 @@ public class Resource {
     private int quantity;
 
     private boolean available;
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Facility type is required")
-    private FacilityType facilityType;
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Facility role is required")
-    private FacilityRole facilityRole;
-    @NotBlank(message = "Facility name is required")
-    private String facilityName;
+
+    @ManyToOne
+    @JoinColumn(name = "facility_id", nullable = false)
+    private Facility facility;
     @NotNull(message = "Last updated timestamp is required")
     private LocalDateTime lastUpdated;
-    @NotBlank(message = "please add facility phone number")
-    private String facilityPhoneNumber;
-    @NotBlank(message = " please add facility email")
-    private String facilityEmail;
-    @NotNull
-    @Column(name = "location", columnDefinition = "geography(Point , 4326)" , updatable = false)
-    private Point location;
-
 
     public Resource() {
     }
 
     public Resource(UUID id, String name, ResourceType resourceType,
-                    int quantity, boolean available, FacilityType facilityType,
-                    String facilityName, LocalDateTime lastUpdated , String
-                            facilityPhoneNumber , String facilityEmail , Point location) {
+                    int quantity, boolean available, Facility facility,
+                    LocalDateTime lastUpdated) {
         this.id = id;
         this.name = name;
         this.resourceType = resourceType;
         this.quantity = quantity;
         this.available = available;
-        this.facilityType = facilityType;
-        this.facilityName = facilityName;
+        this.facility = facility;
         this.lastUpdated = lastUpdated;
-        this.facilityEmail = facilityEmail;
-        this.facilityPhoneNumber = facilityPhoneNumber;
-        this.location = location;
     }
     public UUID getId() {
         return id;
@@ -93,46 +76,20 @@ public class Resource {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-    public FacilityType getFacilityType() {
-        return facilityType;
+
+    public Facility getFacility() {
+        return facility;
     }
-    public void setFacilityType(FacilityType facilityType) {
-        this.facilityType = facilityType;
+
+    public void setFacility(Facility facility) {
+        this.facility = facility;
     }
-    public String getFacilityName() {
-        return facilityName;
-    }
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
-    }
+
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
+
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
-    }
-    public FacilityRole getFacilityRole() {
-        return facilityRole;
-    }
-    public void setFacilityRole(FacilityRole facilityRole) {
-        this.facilityRole = facilityRole;
-    }
-    public String getFacilityPhoneNumber() {
-        return facilityPhoneNumber;
-    }
-    public void setFacilityPhoneNumber(String facilityPhoneNumber) {
-        this.facilityPhoneNumber = facilityPhoneNumber;
-    }
-    public String getFacilityEmail() {
-        return facilityEmail;
-    }
-    public void setFacilityEmail(String facilityEmail) {
-        this.facilityEmail = facilityEmail;
-    }
-    public Point getLocation() {
-        return location;
-    }
-    public void setLocation(Point location) {
-        this.location = location;
     }
 }

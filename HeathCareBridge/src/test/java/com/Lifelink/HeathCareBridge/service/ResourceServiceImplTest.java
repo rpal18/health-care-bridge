@@ -73,12 +73,7 @@ class ResourceServiceImplTest {
         resource.setQuantity(10);
         resource.setAvailable(true);
         resource.setResourceType(ResourceType.VENTILATOR);
-        resource.setFacilityName(facility.getName());
-        resource.setFacilityType(facility.getType());
-        resource.setFacilityRole(facility.getFacilityRole());
-        resource.setFacilityEmail(facility.getEmail());
-        resource.setFacilityPhoneNumber(facility.getPhoneNumber());
-        resource.setLocation(facility.getLocation());
+        resource.setFacility(facility);
         resource.setLastUpdated(LocalDateTime.now());
 
         resourceDTO = new ResourceDTO(

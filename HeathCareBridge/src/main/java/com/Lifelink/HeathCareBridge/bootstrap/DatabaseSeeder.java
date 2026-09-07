@@ -120,15 +120,8 @@ public class DatabaseSeeder implements CommandLineRunner {
                 resource.setQuantity(random.nextInt(50) + 1);
                 resource.setAvailable(random.nextBoolean());
 
-                // --- MAP THE CRITICAL FIELDS ---
-                resource.setLocation(location); // <-- The new location field added for PostGIS routing
-                resource.setFacilityType(facility.getType());
-                resource.setFacilityRole(facility.getFacilityRole());
-                resource.setFacilityName(facility.getName());
-                resource.setFacilityPhoneNumber(facility.getPhoneNumber());
-                resource.setFacilityEmail(facility.getEmail());
+                resource.setFacility(facility);
                 resource.setLastUpdated(LocalDateTime.now());
-
                 resourcesToSave.add(resource);
             }
         }

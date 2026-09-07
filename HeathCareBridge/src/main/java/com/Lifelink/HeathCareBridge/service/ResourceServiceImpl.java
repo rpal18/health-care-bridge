@@ -66,16 +66,11 @@ public class ResourceServiceImpl implements ResourceService {
         }
         Resource resource = new Resource();
         resource.setName(name);
-        resource.setFacilityType(facility.getType());
         resource.setQuantity(quantity);
         resource.setLastUpdated(LocalDateTime.now());
         resource.setAvailable(quantity > 0);
         resource.setResourceType(resourceType);
-        resource.setFacilityName(facility.getName());
-        resource.setFacilityRole(facility.getFacilityRole());
-        resource.setFacilityEmail(facility.getEmail());
-        resource.setFacilityPhoneNumber(facility.getPhoneNumber());
-        resource.setLocation(facility.getLocation());
+        resource.setFacility(facility);
         Resource savedResource = resourceRepository.save(resource);
         return modelMapper.map(savedResource, ResourceResponseDTO.class);
     }
@@ -86,9 +81,9 @@ public class ResourceServiceImpl implements ResourceService {
         List<ResourceResponseDTO> response = resources.stream().
                 map(element -> {
                     ResourceResponseDTO dto = modelMapper.map(element, ResourceResponseDTO.class);
-                    if (element.getLocation() != null) {
-                        dto.setLatitude(element.getLocation().getY());
-                        dto.setLongitude(element.getLocation().getX());
+                    if (element.getFacility().getLocation() != null) {
+                        dto.setLatitude(element.getFacility().getLocation().getY());
+                        dto.setLongitude(element.getFacility().getLocation().getX());
                     }
                     return dto;
                 }).toList();
@@ -119,18 +114,13 @@ public class ResourceServiceImpl implements ResourceService {
         }
         Blood bloodResource = new Blood();
         bloodResource.setName(bloodResourceDTO.getName());
-        bloodResource.setFacilityType(facility.getType());
+        bloodResource.setFacility(facility);
         bloodResource.setQuantity(quantity);
         bloodResource.setLastUpdated(LocalDateTime.now());
         bloodResource.setAvailable(quantity > 0);
         bloodResource.setResourceType(ResourceType.BLOOD);
-        bloodResource.setFacilityName(facility.getName());
-        bloodResource.setFacilityRole(facility.getFacilityRole());
         bloodResource.setBloodComponent(bloodResourceDTO.getBloodComponent());
         bloodResource.setBloodGroup(bloodResourceDTO.getBloodGroup());
-        bloodResource.setFacilityEmail(facility.getEmail());
-        bloodResource.setFacilityPhoneNumber(facility.getPhoneNumber());
-        bloodResource.setLocation(facility.getLocation());
         Blood savedBloodResource = bloodRepository.save(bloodResource);
         return modelMapper.map(savedBloodResource, BloodResourceResponseDTO.class);
     }
@@ -163,14 +153,8 @@ public class ResourceServiceImpl implements ResourceService {
         if (facilityID == null) {
             throw new DetailsNotFound("Admin is not associated with any facility");
         }
-        String facilityEmail = resource.getFacilityEmail();
-        String facilityPhoneNumber = resource.getFacilityPhoneNumber();
-        Facility facility = facilityRepository.findFacilityByEmailAndPhoneNumber(facilityEmail, facilityPhoneNumber).
+        Facility facility = facilityRepository.findFacilityById(facilityID).
                 orElseThrow(() -> new DetailsNotFound("No facility found!!"));
-        if (facilityID != facility.getId()) {
-            throw new AccessDeniedException("Not authorized!!");
-        }
-
         if (quantity < 0) {
             throw new IllegalArgument("Quantity to allocate cannot be negative");
         }

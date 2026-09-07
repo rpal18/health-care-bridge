@@ -1,8 +1,5 @@
 package com.Lifelink.HeathCareBridge.security;
 
-
-
-
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -90,8 +87,8 @@ public class JwtUtils {
          we could potentially find exception here , so i will make use of try and catch block
           */
         try{
-            System.out.println("Validate");
             Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(authToken);
+            System.out.println("Validate");
             return true;
         }catch(MalformedJwtException e){
             logger.error("Jwt token is malformed : {}"  , e.getMessage());

@@ -48,16 +48,13 @@ public class Facility {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Facility status is required")
     private FacilityStatus facilityStatus;
-    private Boolean is24x7;
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")
     private String phoneNumber;
     @Email(message = "Invalid email address")
     private String email;
-
-
     private boolean isDeleted = false;
-    private LocalDateTime deletedAt ;
+    private LocalDateTime deletedAt;
     private String deletionReason;
 
     @Column(nullable = false , updatable = false)
@@ -69,6 +66,8 @@ public class Facility {
     @OneToOne(mappedBy = "facility", cascade = CascadeType.ALL)
     @JsonBackReference
     private Admin facilityAdmin;
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Resource> resource;
 
 
     public Facility() {
@@ -77,7 +76,7 @@ public class Facility {
     public Facility(UUID id, String name, String address, FacilityType type,
                     FacilityRole facilityRole, Set<FacilityRole> roles,
                     Boolean directPatientCare, Boolean is24x7, String phoneNumber,
-                    String email , Point location) {
+                    String email , Point location , Set<Resource> resource) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -89,6 +88,7 @@ public class Facility {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.location = location;
+        this.resource = resource;
     }
 
     public UUID getId() {
@@ -137,14 +137,6 @@ public class Facility {
 
     public void setDirectPatientCare(Boolean directPatientCare) {
         this.directPatientCare = directPatientCare;
-    }
-
-    public Boolean getIs24x7() {
-        return is24x7;
-    }
-
-    public void setIs24x7(Boolean is24x7) {
-        this.is24x7 = is24x7;
     }
 
     public String getPhoneNumber() {
@@ -228,5 +220,13 @@ public class Facility {
 
     public void setLocation(Point location) {
         this.location = location;
+    }
+
+    public Set<Resource> getResource() {
+        return resource;
+    }
+
+    public void setResource(Set<Resource> resource) {
+        this.resource = resource;
     }
 }

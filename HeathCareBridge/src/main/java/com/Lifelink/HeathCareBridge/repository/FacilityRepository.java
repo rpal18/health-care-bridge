@@ -17,4 +17,6 @@ public interface FacilityRepository extends JpaRepository<Facility, UUID> {
     List<Facility> findAllByIsDeletedFalse();
 
     Optional<Facility> findFacilityByEmailAndPhoneNumber(String email, String  phoneNumber);
+
+    Optional<Facility> findFacilityById(UUID facilityID);
 }

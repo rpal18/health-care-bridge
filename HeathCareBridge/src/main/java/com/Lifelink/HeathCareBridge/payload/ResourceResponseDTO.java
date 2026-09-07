@@ -2,13 +2,7 @@ package com.Lifelink.HeathCareBridge.payload;
 
 import com.Lifelink.HeathCareBridge.model.Facility;
 import com.Lifelink.HeathCareBridge.model.FacilityRole;
-import com.Lifelink.HeathCareBridge.model.FacilityType;
 import com.Lifelink.HeathCareBridge.model.ResourceType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,24 +13,24 @@ public class ResourceResponseDTO {
     private String name;
     private ResourceType resourceType;
     private int quantity;
-    private Facility facility;
     private boolean available;
 
     private LocalDateTime lastUpdated;
-
+    private String facilityName;
     private FacilityRole facilityRole;
     private Double latitude;
     private Double longitude;
 
-    public ResourceResponseDTO(UUID id, String name, ResourceType resourceType,
-                               int quantity, Facility facility, boolean available
-    , LocalDateTime lastUpdated , FacilityRole facilityRole , Double latitude , Double longitude) {
+    public ResourceResponseDTO(UUID id, String name, ResourceType resourceType, int quantity,
+                                boolean available, LocalDateTime lastUpdated ,
+                               FacilityRole facilityRole , Double latitude ,
+                               Double longitude , String facilityName) {
         this.id = id;
         this.name = name;
         this.resourceType = resourceType;
         this.quantity = quantity;
-        this.facility = facility;
         this.available = available;
+        this.facilityName = facilityName;
         this.lastUpdated = lastUpdated;
         this.facilityRole = facilityRole;
         this.longitude = longitude;
@@ -73,17 +67,8 @@ public class ResourceResponseDTO {
     public int getQuantity() {
         return quantity;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Facility getFacility() {
-        return facility;
-    }
-
-    public void setFacility(Facility facility) {
-        this.facility = facility;
     }
 
     public boolean isAvailable() {
@@ -93,11 +78,9 @@ public class ResourceResponseDTO {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
-
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
@@ -124,5 +107,13 @@ public class ResourceResponseDTO {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getFacilityName() {
+        return facilityName;
+    }
+
+    public void setFacilityName(String facilityName) {
+        this.facilityName = facilityName;
     }
 }
