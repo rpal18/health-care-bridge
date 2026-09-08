@@ -99,7 +99,6 @@ public class EmergencyTelegramBot extends TelegramLongPollingBot {
                         description = update.getMessage().getText();
                     }
 
-                    // Call AI Service (it handles null multipartFile gracefully!)
                     AiResponse triageData = aiService.analyzeEmergency(description, multipartFile);
 
                     List<FacilityLocationProjection> nearestFacilities;
