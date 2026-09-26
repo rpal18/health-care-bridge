@@ -1,4 +1,4 @@
-package com.Lifelink.HeathCareBridge.controller;
+package com.Lifelink.HeathCareBridge.ai.web;
 
 import com.Lifelink.HeathCareBridge.model.ResourceType;
 import com.Lifelink.HeathCareBridge.payload.AiResponse;
@@ -6,7 +6,7 @@ import com.Lifelink.HeathCareBridge.payload.LocationDTO;
 import com.Lifelink.HeathCareBridge.payload.NearByResponseDTO;
 import com.Lifelink.HeathCareBridge.projection.FacilityLocationProjection;
 import com.Lifelink.HeathCareBridge.repository.ResourceRepository;
-import com.Lifelink.HeathCareBridge.service.AiService;
+import com.Lifelink.HeathCareBridge.ai.service.AiService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

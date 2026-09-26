@@ -10,6 +10,10 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+#      kokoro:
+#        condition: service_healthy
+
     restart: on-failure
 
   postgres:
@@ -30,6 +34,18 @@ services:
       interval: 10s
       retries: 6
       timeout: 5s
+#  kokoro:
+#    image: ghcr.io/remsky/kokoro-fastapi-cpu:latest
+#    restart: unless-stopped
+#    container_name: kokoro-container
+#    ports:
+#      - "8880:8880"
+#    healthcheck:
+#        test: ["CMD", "curl", "-f", "http://localhost:8880/health"]
+#        interval: 30s
+#        timeout: 10s
+#        retries: 5
+#        start_period: 60s
 
 volumes:
   pg_database_storage:
