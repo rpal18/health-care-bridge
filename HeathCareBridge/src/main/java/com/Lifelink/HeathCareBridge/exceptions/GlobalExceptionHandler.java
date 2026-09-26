@@ -29,4 +29,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Access denied: " + ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(UnsupportedLanguageException.class)
+    public ResponseEntity<String> handleUnsupportedLanguage(UnsupportedLanguageException ex) {
+        return new ResponseEntity<>("Unsupported language: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }

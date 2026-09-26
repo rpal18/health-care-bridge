@@ -1,4 +1,4 @@
-package com.Lifelink.HeathCareBridge.service;
+package com.Lifelink.HeathCareBridge.ai.service;
 
 import com.Lifelink.HeathCareBridge.payload.AiResponse;
 import org.springframework.ai.chat.client.ChatClient;

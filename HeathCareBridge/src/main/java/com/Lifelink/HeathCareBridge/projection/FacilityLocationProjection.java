@@ -4,4 +4,10 @@ public interface FacilityLocationProjection {
     Double getLongitude();
     Double getLatitude();
     Double getDistance();
+
+    String getMapLink();
+
+    default String mapLink(){
+        return "https://www.google.com/maps/search/?api=1&query=" + getLatitude() + "," + getLongitude();
+    }
 }
