@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//@Component
-//@Profile("!test")
+@Component
+@Profile("!test")
 public class EmergencyTelegramBot extends TelegramLongPollingBot {
 
     @Value("${telegram.bot.username}")
