@@ -11,8 +11,12 @@ services:
       postgres:
         condition: service_healthy
 
-#      kokoro:
-#        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 
     restart: on-failure
 
@@ -34,18 +38,12 @@ services:
       interval: 10s
       retries: 6
       timeout: 5s
-#  kokoro:
-#    image: ghcr.io/remsky/kokoro-fastapi-cpu:latest
-#    restart: unless-stopped
-#    container_name: kokoro-container
-#    ports:
-#      - "8880:8880"
-#    healthcheck:
-#        test: ["CMD", "curl", "-f", "http://localhost:8880/health"]
-#        interval: 30s
-#        timeout: 10s
-#        retries: 5
-#        start_period: 60s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   pg_database_storage:
