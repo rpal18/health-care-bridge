@@ -50,4 +50,5 @@ jobs:
             COOKIE: dummyCookie
             JWT_SECRET: dummySecret
             AI_MODEL: dummyModel
+            GEMINI_API_KEY: geminiApiKey
 
